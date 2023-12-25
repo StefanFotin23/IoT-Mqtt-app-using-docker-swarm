@@ -68,7 +68,7 @@
         "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 350,
+        "x": 570,
         "y": 140,
         "wires": [
             [
@@ -94,8 +94,8 @@
         "y": 140,
         "wires": [
             [
-                "8675df52536e46c7",
-                "d1ebca6aae476305"
+                "d1ebca6aae476305",
+                "f27ac802605e2c80"
             ]
         ]
     },
@@ -113,7 +113,7 @@
         "retentionPolicyV18Flux": "",
         "org": "organisation",
         "bucket": "bucket",
-        "x": 600,
+        "x": 780,
         "y": 140,
         "wires": []
     },
@@ -147,7 +147,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 360,
+        "x": 580,
         "y": 220,
         "wires": []
     },
@@ -304,6 +304,26 @@
         "wires": [
             [
                 "a588503d214c13ff"
+            ]
+        ]
+    },
+    {
+        "id": "f27ac802605e2c80",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Data processing",
+        "func": "msg.measurement = \"temperature\";\nmsg.payload = {\n    location: \"room1\",\n    value: 25.0\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "8675df52536e46c7"
             ]
         ]
     }
