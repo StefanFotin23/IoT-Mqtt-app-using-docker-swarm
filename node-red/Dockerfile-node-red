@@ -1,0 +1,11 @@
+# Use the official Node-RED image as the base image
+FROM nodered/node-red:latest
+
+# Install Node-RED nodes
+RUN npm install node-red-contrib-influxdb
+
+# Expose port outside the container
+EXPOSE 1880
+
+# Set the user directory for Node-RED
+ENTRYPOINT ["/data/entrypoint.sh"]

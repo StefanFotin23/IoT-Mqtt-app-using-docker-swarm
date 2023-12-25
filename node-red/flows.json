@@ -13,7 +13,7 @@
         "name": "",
         "broker": "Tema3-IoT_mosquitto",
         "port": "1883",
-        "clientid": "",
+        "clientid": "Node-Red-Client",
         "autoConnect": true,
         "usetls": false,
         "protocolVersion": "4",
