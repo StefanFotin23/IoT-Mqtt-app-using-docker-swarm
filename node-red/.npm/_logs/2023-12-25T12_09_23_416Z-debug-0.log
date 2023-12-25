@@ -3,54 +3,54 @@
 2 info using node@v16.20.2
 3 timing npm:load:whichnode Completed in 0ms
 4 timing config:load:defaults Completed in 1ms
-5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
-6 timing config:load:builtin Completed in 1ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 2ms
+6 timing config:load:builtin Completed in 2ms
 7 timing config:load:cli Completed in 1ms
 8 timing config:load:env Completed in 0ms
 9 timing config:load:file:/data/.npmrc Completed in 1ms
-10 timing config:load:project Completed in 3ms
+10 timing config:load:project Completed in 5ms
 11 timing config:load:file:/usr/src/node-red/.npmrc Completed in 0ms
 12 timing config:load:user Completed in 0ms
-13 timing config:load:file:/usr/local/etc/npmrc Completed in 3ms
-14 timing config:load:global Completed in 3ms
+13 timing config:load:file:/usr/local/etc/npmrc Completed in 1ms
+14 timing config:load:global Completed in 1ms
 15 timing config:load:validate Completed in 1ms
-16 timing config:load:credentials Completed in 1ms
+16 timing config:load:credentials Completed in 0ms
 17 timing config:load:setEnvs Completed in 0ms
-18 timing config:load Completed in 11ms
-19 timing npm:load:configload Completed in 11ms
-20 timing npm:load:mkdirpcache Completed in 5ms
-21 timing npm:load:mkdirplogs Completed in 3ms
+18 timing config:load Completed in 13ms
+19 timing npm:load:configload Completed in 13ms
+20 timing npm:load:mkdirpcache Completed in 4ms
+21 timing npm:load:mkdirplogs Completed in 5ms
 22 verbose title npm install node-red-contrib-influxdb
 23 verbose argv "install" "node-red-contrib-influxdb"
 24 timing npm:load:setTitle Completed in 1ms
-25 timing config:load:flatten Completed in 2ms
-26 timing npm:load:display Completed in 2ms
+25 timing config:load:flatten Completed in 3ms
+26 timing npm:load:display Completed in 3ms
 27 verbose logfile logs-max:10 dir:/data/.npm/_logs
-28 verbose logfile /data/.npm/_logs/2023-12-25T09_45_37_298Z-debug-0.log
-29 timing npm:load:logFile Completed in 13ms
+28 verbose logfile /data/.npm/_logs/2023-12-25T12_09_23_416Z-debug-0.log
+29 timing npm:load:logFile Completed in 16ms
 30 timing npm:load:timers Completed in 0ms
-31 timing npm:load:configScope Completed in 1ms
-32 timing npm:load Completed in 37ms
+31 timing npm:load:configScope Completed in 0ms
+32 timing npm:load Completed in 43ms
 33 timing arborist:ctor Completed in 1ms
-34 silly logfile start cleaning logs, removing 2 files
+34 silly logfile start cleaning logs, removing 1 files
 35 silly logfile done cleaning log files
-36 timing idealTree:init Completed in 19ms
-37 timing idealTree:userRequests Completed in 2ms
+36 timing idealTree:init Completed in 20ms
+37 timing idealTree:userRequests Completed in 1ms
 38 silly idealTree buildDeps
 39 silly fetch manifest node-red-contrib-influxdb@^0.6.1
-40 verbose shrinkwrap failed to load node_modules/.package-lock.json out of date, updated: node_modules
-41 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb 47ms (cache hit)
+40 timing arborist:ctor Completed in 0ms
+41 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb 51ms (cache hit)
 42 silly placeDep ROOT node-red-contrib-influxdb@0.6.1 REPLACE for: node-red-project@0.0.1 want: ^0.6.1
-43 timing idealTree:#root Completed in 55ms
+43 timing idealTree:#root Completed in 59ms
 44 timing idealTree:node_modules/node-red-contrib-influxdb Completed in 0ms
-45 timing idealTree:buildDeps Completed in 56ms
-46 timing idealTree:fixDepFlags Completed in 0ms
-47 timing idealTree Completed in 79ms
-48 timing reify:loadTrees Completed in 80ms
+45 timing idealTree:buildDeps Completed in 61ms
+46 timing idealTree:fixDepFlags Completed in 1ms
+47 timing idealTree Completed in 85ms
+48 timing reify:loadTrees Completed in 87ms
 49 timing reify:diffTrees Completed in 1ms
 50 silly reify moves {}
 51 timing reify:retireShallow Completed in 1ms
-52 timing reify:createSparse Completed in 0ms
+52 timing reify:createSparse Completed in 1ms
 53 timing reify:loadBundles Completed in 0ms
 54 silly audit bulk request {
 54 silly audit   '@influxdata/influxdb-client': [ '1.33.2' ],
@@ -63,16 +63,16 @@
 57 timing build:queue Completed in 0ms
 58 timing build:deps Completed in 1ms
 59 timing build Completed in 1ms
-60 timing reify:build Completed in 1ms
+60 timing reify:build Completed in 2ms
 61 timing reify:trash Completed in 0ms
-62 timing reify:save Completed in 10ms
-63 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 333ms
-64 timing auditReport:getReport Completed in 334ms
+62 timing reify:save Completed in 15ms
+63 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 306ms
+64 timing auditReport:getReport Completed in 308ms
 65 silly audit report {}
 66 timing auditReport:init Completed in 0ms
-67 timing reify:audit Completed in 336ms
-68 timing reify Completed in 424ms
-69 timing command:install Completed in 429ms
+67 timing reify:audit Completed in 310ms
+68 timing reify Completed in 407ms
+69 timing command:install Completed in 412ms
 70 verbose exit 0
-71 timing npm Completed in 529ms
+71 timing npm Completed in 521ms
 72 info ok
