@@ -1,0 +1,310 @@
+[
+    {
+        "id": "6a8edfdc97cb68bb",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "293abc423b056112",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "Tema3-IoT_mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "8140b2d2a8cd9522",
+        "type": "influxdb",
+        "hostname": "Tema3-IoT_influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "iot_data",
+        "name": "",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "1.x",
+        "url": "http://localhost:8086",
+        "rejectUnauthorized": true
+    },
+    {
+        "id": "8675df52536e46c7",
+        "type": "http request",
+        "z": "6a8edfdc97cb68bb",
+        "name": "",
+        "method": "POST",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://Tema3-IoT_influxdb:8086/write?db=iot_data",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "basic",
+        "senderr": false,
+        "headers": [],
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "72e23c98fd27c552",
+                "2e4ba6dacdc16090"
+            ]
+        ]
+    },
+    {
+        "id": "9a1e0a3cd4d261c7",
+        "type": "mqtt in",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Mosquitto",
+        "topic": "tema3-sprc",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "293abc423b056112",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 140,
+        "wires": [
+            [
+                "8675df52536e46c7",
+                "d1ebca6aae476305"
+            ]
+        ]
+    },
+    {
+        "id": "2e4ba6dacdc16090",
+        "type": "influxdb out",
+        "z": "6a8edfdc97cb68bb",
+        "influxdb": "8140b2d2a8cd9522",
+        "name": "InfluxDB",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "organisation",
+        "bucket": "bucket",
+        "x": 600,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "d1ebca6aae476305",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "MQTT_input",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 130,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "72e23c98fd27c552",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "HTTP Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c6a9e9ac3f8ed22b",
+        "type": "inject",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Ping MqttClient",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "c87793b6a9b4d586"
+            ]
+        ]
+    },
+    {
+        "id": "c87793b6a9b4d586",
+        "type": "http request",
+        "z": "6a8edfdc97cb68bb",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://Tema3-IoT_mqtt-client:6000/ping",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 350,
+        "y": 300,
+        "wires": [
+            [
+                "8578a0a3abaac3bb"
+            ]
+        ]
+    },
+    {
+        "id": "8578a0a3abaac3bb",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "HTTP Response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a588503d214c13ff",
+        "type": "http request",
+        "z": "6a8edfdc97cb68bb",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "query",
+        "url": "http://Tema3-IoT_mqtt-client:6000/publish",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [
+            {
+                "keyType": "Content-Type",
+                "keyValue": "",
+                "valueType": "application/json",
+                "valueValue": ""
+            }
+        ],
+        "x": 610,
+        "y": 360,
+        "wires": [
+            [
+                "589fce16a72abf47"
+            ]
+        ]
+    },
+    {
+        "id": "a3ff1387d3b2e018",
+        "type": "inject",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Send message to MqttClient",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 180,
+        "y": 360,
+        "wires": [
+            [
+                "0e1a609ac829dbfe"
+            ]
+        ]
+    },
+    {
+        "id": "589fce16a72abf47",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "0e1a609ac829dbfe",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Message",
+        "func": "msg.payload = {\n    message: \"TestMessage\",\n    topic: \"tema3-sprc\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 360,
+        "wires": [
+            [
+                "a588503d214c13ff"
+            ]
+        ]
+    }
+]

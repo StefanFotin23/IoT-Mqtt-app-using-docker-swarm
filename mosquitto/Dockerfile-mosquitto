@@ -1,0 +1,5 @@
+FROM eclipse-mosquitto:latest
+
+# Copy the local mosquitto.conf into the container
+COPY mosquitto/mosquitto.conf /mosquitto/config/mosquitto.conf
+COPY mosquitto/mosquitto.passwd /mosquitto/config/mosquitto.passwd
