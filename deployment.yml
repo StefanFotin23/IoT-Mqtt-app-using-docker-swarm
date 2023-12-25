@@ -1,0 +1,85 @@
+version: '3.7'
+
+services:
+  influxdb:
+    image: influxdb:latest
+    deploy:
+      replicas: 1
+    environment:
+      - INFLUXDB_DB=iot_data
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=admin_password
+      - INFLUXDB_USER=user
+      - INFLUXDB_USER_PASSWORD=user_password
+    ports:
+      - "8086:8086"
+    volumes:
+      - influxdb_data:/var/lib/influxdb
+    networks:
+      - my-network
+
+  grafana:
+    image: grafana/grafana:latest
+    deploy:
+      replicas: 1
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=grafana_password
+    ports:
+      - "3000:3000"
+    depends_on:
+      - influxdb
+    networks:
+      - my-network
+
+  mosquitto:
+    image: mosquitto-server:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "1883:1883"
+    networks:
+      - my-network
+
+  node-red:
+    image: nodered/node-red:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "1880:1880"
+    environment:
+      - TZ=Europe/Bucharest
+    volumes:
+      - ./node-red:/data
+    depends_on:
+      - influxdb
+      - mosquitto
+    entrypoint: /data/entrypoint.sh
+    networks:
+      - my-network
+
+  mqtt-client:
+    image: mqtt-client-image:latest
+    deploy:
+      replicas: 1
+    ports:
+      - "6000:6000"
+    environment:
+      - MQTT_BROKER_ADDRESS=Tema3-IoT_mosquitto
+      - MQTT_BROKER_PORT=1883
+      - MQTT_SUBSCRIBE_TOPIC=tema3-sprc
+      - MQTT_PUBLISH_TOPIC=tema3-sprc
+      - MQTT_CLIENT_ID=MQTT_Client
+      - SERVER_PORT=6000
+    depends_on:
+      - influxdb
+      - mosquitto
+    networks:
+      - my-network
+
+volumes:
+  influxdb_data:
+  node-red-data:
+
+networks:
+  my-network:
+    driver: overlay
