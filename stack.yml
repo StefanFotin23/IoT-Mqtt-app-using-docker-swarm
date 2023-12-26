@@ -11,6 +11,7 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=admin_password
       - INFLUXDB_USER=user
       - INFLUXDB_USER_PASSWORD=user_password
+      - organisation=UPB
     ports:
       - "8086:8086"
     volumes:
