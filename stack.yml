@@ -49,6 +49,7 @@ services:
       - "1880:1880"
     environment:
       - TZ=Europe/Bucharest
+      - DEBUG_DATA_FLOW=true
     volumes:
       - ./node-red:/data
     depends_on:

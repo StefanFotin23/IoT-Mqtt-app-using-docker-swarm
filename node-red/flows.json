@@ -53,30 +53,6 @@
         "rejectUnauthorized": true
     },
     {
-        "id": "8675df52536e46c7",
-        "type": "http request",
-        "z": "6a8edfdc97cb68bb",
-        "name": "",
-        "method": "POST",
-        "ret": "txt",
-        "paytoqs": "ignore",
-        "url": "http://Tema3-IoT_influxdb:8086/write?db=iot_data",
-        "tls": "",
-        "persist": false,
-        "proxy": "",
-        "insecureHTTPParser": false,
-        "authType": "basic",
-        "senderr": false,
-        "headers": [],
-        "x": 1130,
-        "y": 160,
-        "wires": [
-            [
-                "72e23c98fd27c552"
-            ]
-        ]
-    },
-    {
         "id": "9a1e0a3cd4d261c7",
         "type": "mqtt in",
         "z": "6a8edfdc97cb68bb",
@@ -90,11 +66,11 @@
         "rh": 0,
         "inputs": 0,
         "x": 120,
-        "y": 140,
+        "y": 60,
         "wires": [
             [
-                "d1ebca6aae476305",
-                "c38e925235536fc0"
+                "83907bc1c63c8cca",
+                "4236a527c335c211"
             ]
         ]
     },
@@ -112,8 +88,8 @@
         "retentionPolicyV18Flux": "",
         "org": "UPB",
         "bucket": "iot_data",
-        "x": 800,
-        "y": 140,
+        "x": 540,
+        "y": 60,
         "wires": []
     },
     {
@@ -129,25 +105,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 130,
-        "y": 220,
-        "wires": []
-    },
-    {
-        "id": "72e23c98fd27c552",
-        "type": "debug",
-        "z": "6a8edfdc97cb68bb",
-        "name": "HTTP Response",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 1140,
-        "y": 220,
+        "x": 550,
+        "y": 140,
         "wires": []
     },
     {
@@ -172,7 +131,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 300,
+        "y": 260,
         "wires": [
             [
                 "c87793b6a9b4d586"
@@ -195,11 +154,11 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 350,
-        "y": 300,
+        "x": 330,
+        "y": 260,
         "wires": [
             [
-                "8578a0a3abaac3bb"
+                "1651cc2379382588"
             ]
         ]
     },
@@ -216,8 +175,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 560,
-        "y": 300,
+        "x": 760,
+        "y": 260,
         "wires": []
     },
     {
@@ -243,11 +202,11 @@
                 "valueValue": ""
             }
         ],
-        "x": 870,
-        "y": 360,
+        "x": 410,
+        "y": 600,
         "wires": [
             [
-                "589fce16a72abf47"
+                "2a055defe8e6b0f5"
             ]
         ]
     },
@@ -257,16 +216,16 @@
         "z": "6a8edfdc97cb68bb",
         "name": "Send message to MqttClient",
         "props": [],
-        "repeat": "",
+        "repeat": "60",
         "crontab": "",
-        "once": false,
+        "once": true,
         "onceDelay": 0.1,
         "topic": "",
-        "x": 180,
-        "y": 360,
+        "x": 190,
+        "y": 380,
         "wires": [
             [
-                "c3cb3ad107b502c7"
+                "05c394af3692ddd2"
             ]
         ]
     },
@@ -274,7 +233,7 @@
         "id": "589fce16a72abf47",
         "type": "debug",
         "z": "6a8edfdc97cb68bb",
-        "name": "debug 1",
+        "name": "Request Response",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -283,8 +242,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1040,
-        "y": 360,
+        "x": 850,
+        "y": 600,
         "wires": []
     },
     {
@@ -292,46 +251,19 @@
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "Parse JSON to String",
-        "func": "// ADD CURRENT TIMESTAMP\n// Get the current date and time\nvar currentDate = new Date();\n\n// Format the date as \"hh-mm-ss-dd-mm-yyyy\"\nvar formattedTimestamp = currentDate.toLocaleString('en-GB', {\n    hour: '2-digit',\n    minute: '2-digit',\n    second: '2-digit',\n    day: '2-digit',\n    month: '2-digit',\n    year: 'numeric'\n});\n\n// Set the formatted timestamp in the payload\nmsg.payload.message.timestamp = formattedTimestamp;\n\n// STRINGIFY THE JSON MESSAGE\n// Store the message object in a variable\nvar messageObj = msg.payload.message;\n\n// Stringify only the message object\nmsg.payload.message = JSON.stringify(messageObj);\nreturn msg;",
+        "func": "// Store the message object in a variable\nvar messageObj = msg.payload.message;\n\n// Stringify only the message object\nmsg.payload.message = JSON.stringify(messageObj);\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 660,
-        "y": 360,
+        "x": 160,
+        "y": 600,
         "wires": [
             [
                 "a588503d214c13ff",
-                "a52817d01fdbd8b4"
-            ]
-        ]
-    },
-    {
-        "id": "c38e925235536fc0",
-        "type": "change",
-        "z": "6a8edfdc97cb68bb",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "measurement",
-                "pt": "msg",
-                "to": "sensorData",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 340,
-        "y": 140,
-        "wires": [
-            [
-                "2e4ba6dacdc16090"
+                "faf696ab95f12290"
             ]
         ]
     },
@@ -340,15 +272,15 @@
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "JSON Input Data",
-        "func": "msg.payload = {\n    message: {\n        BAT: 99,\n        HUMID: 40,\n        PRJ: \"SPRC\",\n        TMP: 25.3,\n        status: \"OK\"\n    },\n    topic: \"tema3-sprc\"\n};\nreturn msg;",
+        "func": "var number = msg.payload;\n\nswitch (number) {\n    case 1:\n        msg.payload = {\n            message: {\n                BAT: 99,\n                HUMID: 40,\n                PRJ: \"SPRC\",\n                TMP: 25.3,\n                status: \"OK\",\n                timestamp: \"2019-11-26 03:54:20 + 03:00\"\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 2:\n        msg.payload = {\n            message: {\n                Alarm: 0,\n                AQI: 12,\n                RSSI: 1550\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 3:\n        \n        break;\n\n    default:\n        // Default action when number doesn't match any case\n        msg.payload = {\n            message: {\n                message: \"This message was invalid\",\n            },\n            topic: \"invalidPayload\"\n        };        \n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 360,
+        "x": 150,
+        "y": 520,
         "wires": [
             [
                 "0e1a609ac829dbfe"
@@ -368,8 +300,204 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 880,
-        "y": 400,
+        "x": 660,
+        "y": 660,
         "wires": []
+    },
+    {
+        "id": "05c394af3692ddd2",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Get a random number from [a,b]",
+        "func": "// Set the range [a, b]\nvar a = 1;\nvar b = 2;\n\n// Generate a random number in the range [a, b]\nvar randomNum = Math.floor(Math.random() * (b - a + 1)) + a;\n\n// Set the message payload to the random number\nmsg.payload = randomNum;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 190,
+        "y": 460,
+        "wires": [
+            [
+                "c3cb3ad107b502c7"
+            ]
+        ]
+    },
+    {
+        "id": "83907bc1c63c8cca",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "msg.measurement",
+        "func": "msg.measurement = \"sensorData\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "2e4ba6dacdc16090"
+            ]
+        ]
+    },
+    {
+        "id": "4236a527c335c211",
+        "type": "switch",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Debug on / off switch",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "$env('DEBUG_DATA_FLOW')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 140,
+        "wires": [
+            [
+                "d1ebca6aae476305"
+            ]
+        ]
+    },
+    {
+        "id": "1651cc2379382588",
+        "type": "switch",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Debug on / off switch",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "$env('DEBUG_DATA_FLOW')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 540,
+        "y": 260,
+        "wires": [
+            [
+                "8578a0a3abaac3bb"
+            ]
+        ]
+    },
+    {
+        "id": "faf696ab95f12290",
+        "type": "switch",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Debug on / off switch",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "$env('DEBUG_DATA_FLOW')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 440,
+        "y": 660,
+        "wires": [
+            [
+                "a52817d01fdbd8b4"
+            ]
+        ]
+    },
+    {
+        "id": "2a055defe8e6b0f5",
+        "type": "switch",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Debug on / off switch",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "jsonata_exp",
+                "v": "$env('DEBUG_DATA_FLOW')",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 620,
+        "y": 600,
+        "wires": [
+            [
+                "589fce16a72abf47"
+            ]
+        ]
+    },
+    {
+        "id": "4553d4b58e821b2a",
+        "type": "exec",
+        "z": "6a8edfdc97cb68bb",
+        "command": "echo \"$msg_payload\" >> /proc/1/fd/1",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Stdout",
+        "x": 790,
+        "y": 380,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "9c279559eb98268e",
+        "type": "exec",
+        "z": "6a8edfdc97cb68bb",
+        "command": "echo \"$msg_payload\" >> /proc/1/fd/2",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Stderr",
+        "x": 790,
+        "y": 460,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "64227e0dd5cde27f",
+        "type": "catch",
+        "z": "6a8edfdc97cb68bb",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 540,
+        "y": 420,
+        "wires": [
+            [
+                "4553d4b58e821b2a",
+                "9c279559eb98268e"
+            ]
+        ]
     }
 ]
