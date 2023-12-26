@@ -11,7 +11,7 @@ build:
 	fi
 
 start:
-	docker stack deploy -c deployment.yml Tema3-IoT
+	docker stack deploy -c stack.yml Tema3-IoT
 
 status:
 	docker stack ps Tema3-IoT

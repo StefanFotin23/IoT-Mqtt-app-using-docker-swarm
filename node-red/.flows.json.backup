@@ -48,8 +48,8 @@
         "name": "",
         "usetls": false,
         "tls": "",
-        "influxdbVersion": "1.x",
-        "url": "http://localhost:8086",
+        "influxdbVersion": "2.0",
+        "url": "http://Tema3-IoT_influxdb:8086",
         "rejectUnauthorized": true
     },
     {
@@ -68,12 +68,11 @@
         "authType": "basic",
         "senderr": false,
         "headers": [],
-        "x": 350,
-        "y": 140,
+        "x": 1130,
+        "y": 160,
         "wires": [
             [
-                "72e23c98fd27c552",
-                "f27ac802605e2c80"
+                "72e23c98fd27c552"
             ]
         ]
     },
@@ -82,7 +81,7 @@
         "type": "mqtt in",
         "z": "6a8edfdc97cb68bb",
         "name": "Mosquitto",
-        "topic": "tema3-sprc",
+        "topic": "#",
         "qos": "2",
         "datatype": "auto-detect",
         "broker": "293abc423b056112",
@@ -94,8 +93,8 @@
         "y": 140,
         "wires": [
             [
-                "8675df52536e46c7",
-                "d1ebca6aae476305"
+                "d1ebca6aae476305",
+                "c38e925235536fc0"
             ]
         ]
     },
@@ -111,8 +110,8 @@
         "database": "database",
         "precisionV18FluxV20": "ms",
         "retentionPolicyV18Flux": "",
-        "org": "organisation",
-        "bucket": "bucket",
+        "org": "UPB",
+        "bucket": "iot_data",
         "x": 800,
         "y": 140,
         "wires": []
@@ -147,7 +146,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 360,
+        "x": 1140,
         "y": 220,
         "wires": []
     },
@@ -244,7 +243,7 @@
                 "valueValue": ""
             }
         ],
-        "x": 610,
+        "x": 870,
         "y": 360,
         "wires": [
             [
@@ -267,7 +266,7 @@
         "y": 360,
         "wires": [
             [
-                "0e1a609ac829dbfe"
+                "c3cb3ad107b502c7"
             ]
         ]
     },
@@ -280,10 +279,11 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 800,
+        "x": 1040,
         "y": 360,
         "wires": []
     },
@@ -291,40 +291,85 @@
         "id": "0e1a609ac829dbfe",
         "type": "function",
         "z": "6a8edfdc97cb68bb",
-        "name": "Message",
-        "func": "msg.payload = {\n    message: \"TestMessage\",\n    topic: \"tema3-sprc\"\n};\n\nreturn msg;",
+        "name": "Parse JSON to String",
+        "func": "// Store the message object in a variable\nvar messageObj = msg.payload.message;\n\n// Stringify only the message object\nmsg.payload.message = JSON.stringify(messageObj);\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 420,
+        "x": 660,
         "y": 360,
         "wires": [
             [
-                "a588503d214c13ff"
+                "a588503d214c13ff",
+                "a52817d01fdbd8b4"
             ]
         ]
     },
     {
-        "id": "f27ac802605e2c80",
-        "type": "function",
+        "id": "c38e925235536fc0",
+        "type": "change",
         "z": "6a8edfdc97cb68bb",
-        "name": "Data processing",
-        "func": "msg.measurement = \"temperature\";\nmsg.payload = {\n    location: \"room1\",\n    value: 25.0\n};\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 580,
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "measurement",
+                "pt": "msg",
+                "to": "sensorData",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
         "y": 140,
         "wires": [
             [
                 "2e4ba6dacdc16090"
             ]
         ]
+    },
+    {
+        "id": "c3cb3ad107b502c7",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "JSON Input Data",
+        "func": "msg.payload = {\n    message: {\n        BAT: 99,\n        HUMID: 40,\n        PRJ: \"SPRC\",\n        TMP: 25.3,\n        status: \"OK\",\n        timestamp: Date.now()\n    },\n    topic: \"tema3-sprc\"\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 360,
+        "wires": [
+            [
+                "0e1a609ac829dbfe"
+            ]
+        ]
+    },
+    {
+        "id": "a52817d01fdbd8b4",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Message format",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 400,
+        "wires": []
     }
 ]
