@@ -8,4 +8,4 @@ Copy the generated TOKEN and use it in InfluxDB node from Node-Red
 
 
 
-TOKEN: DFKMkaA3H-Sa2dI8JdmU4o-ph5LPKRTeJ7do0XgBW4I8U9T99Gmw7ArpLH-Mo0jjYhsgAmFDkMrVG12EeeRMCQ==
+TOKEN: bgYjtrqIR8nN9TuiULEjC-8i07UOXnQaW2Y3b2qHBCFOoM5oxhCfqqDj-OVGTlGA2Npl9AbaBDsrWPQ5Iqy3BQ==

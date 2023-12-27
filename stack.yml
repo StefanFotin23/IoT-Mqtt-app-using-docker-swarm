@@ -1,8 +1,23 @@
 version: '3.7'
 
+volumes:
+  influxdb_data:
+  node-red-data:
+  grafana_data:
+  mosquitto_data:
+  mosquitto_config:
+
+networks:
+  broker-adapter-network:
+    driver: overlay
+  adapter-db-network:
+    driver: overlay
+  grafana-db-network:
+    driver: overlay
+
 services:
   influxdb:
-    image: influxdb:latest
+    image: influxdb:1.8
     deploy:
       replicas: 1
     environment:
@@ -27,13 +42,14 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=grafana_password
     ports:
-      - "3000:3000"
-    depends_on:
-      - influxdb
+      - "80:3000"
     volumes:
       - grafana_data:/var/lib/grafana
     networks:
       - grafana-db-network
+    depends_on:
+      - influxdb
+      - mosquitto
 
   mosquitto:
     image: mosquitto-server:latest
@@ -56,45 +72,29 @@ services:
     environment:
       - TZ=Europe/Bucharest
       - DEBUG_DATA_FLOW=true
+      - MQTT_BROKER_ADDRESS=sprc3_mosquitto
     volumes:
       - ./node-red:/data
-    depends_on:
-      - influxdb
-      - mosquitto
     networks:
       - broker-adapter-network
       - adapter-db-network
+    depends_on:
+      - influxdb
+      - mosquitto
 
   mqtt-client:
     image: mqtt-client-image:latest
     deploy:
       replicas: 1
-    ports:
-      - "6000:6000"
     environment:
-      - MQTT_BROKER_ADDRESS=Tema3-IoT_mosquitto
+      - MQTT_BROKER_ADDRESS=sprc3_mosquitto
       - MQTT_BROKER_PORT=1883
       - MQTT_SUBSCRIBE_TOPIC=tema3-sprc
       - MQTT_PUBLISH_TOPIC=tema3-sprc
       - MQTT_CLIENT_ID=MQTT_Client
       - SERVER_PORT=6000
+    networks:
+      - broker-adapter-network
     depends_on:
       - influxdb
       - mosquitto
-    networks:
-      - broker-adapter-network
-
-volumes:
-  influxdb_data:
-  node-red-data:
-  grafana_data:
-  mosquitto_data:
-  mosquitto_config:
-
-networks:
-  broker-adapter-network:
-    driver: overlay
-  adapter-db-network:
-    driver: overlay
-  grafana-db-network:
-    driver: overlay
