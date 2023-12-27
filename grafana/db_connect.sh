@@ -14,7 +14,6 @@ until curl -G "http://sprc3_influxdb:8086/ping" >/dev/null 2>&1; do
     echo "Waiting for InfluxDB..."
     sleep 5
 done
-
 echo "InfluxDB is ready."
 
 # Create InfluxDB data source in Grafana
@@ -33,7 +32,6 @@ curl -XPOST -H "Content-Type: application/json" \
     "basicAuth": false
 }
 EOF
-
 echo "Grafana data source configured successfully."
 
 # Create Grafana dashboard for UPB IoT Data
@@ -147,7 +145,6 @@ curl -XPOST -H "Content-Type: application/json" \
     "overwrite": false
 }
 EOF
-
 echo "Grafana dashboard for UPB IoT Data created successfully."
 
 # Create Grafana dashboard for Battery Monitoring
@@ -175,7 +172,6 @@ curl -XPOST -H "Content-Type: application/json" \
     "overwrite": false
 }
 EOF
-
 echo "Grafana dashboard for Battery Monitoring created successfully."
 
 # Set data retention policy in InfluxDB
