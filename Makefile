@@ -1,48 +1,51 @@
-.PHONY: all build start status stop logs logs-grafana logs-influxdb logs-mosquitto logs-mqtt-client logs-node-red
+.PHONY: all build start status stop logs logs-grafana logs-influxdb logs-mosquitto logs-mqtt-client logs-node-red create-volumes
 
-NETWORK_NAME := Tema3-IoT_default
+NAME := sprc3
 
-all: stop wait build start wait_status
+all: stop wait create-volumes build start wait_status
 
 build:
 	./build_images.sh
-	@if [ -z "$$(docker network ls -q -f name=$(NETWORK_NAME))" ]; then \
-		docker network create $(NETWORK_NAME); \
-	fi
 
 start:
-	docker stack deploy -c stack.yml Tema3-IoT
+	docker stack deploy -c stack.yml $(NAME)
 
 status:
-	docker stack ps Tema3-IoT
+	docker stack ps $(NAME)
 
 stop:
-	docker stack rm Tema3-IoT
+	docker stack rm $(NAME)
 
 logs: logs-grafana logs-influxdb logs-mosquitto logs-mqtt-client logs-node-red
 
 logs-grafana:
-	docker service logs Tema3-IoT_grafana
+	docker service logs $(NAME)_grafana
 
 logs-influxdb:
-	docker service logs Tema3-IoT_influxdb
+	docker service logs $(NAME)_influxdb
 
 logs-mosquitto:
-	docker service logs Tema3-IoT_mosquitto
+	docker service logs $(NAME)_mosquitto
 
 logs-mqtt-client:
-	docker service logs Tema3-IoT_mqtt-client
+	docker service logs $(NAME)_mqtt-client
 
 logs-node-red:
-	docker service logs Tema3-IoT_node-red
+	docker service logs $(NAME)_node-red
 
 wait:
 	sleep 5
 
 wait_status:
 	@echo "Waiting for services to be in 'Running' state..."
-	@while [ "$$(docker stack ps --filter 'desired-state=Running' --format '{{.CurrentState}}' Tema3-IoT | grep -v 'Running' | wc -l)" -gt 0 ]; do \
+	@while [ "$$(docker stack ps --filter 'desired-state=Running' --format '{{.CurrentState}}' $(NAME) | grep -v 'Running' | wc -l)" -gt 0 ]; do \
 		sleep 5; \
 	done
 	@echo "All services are now in 'Running' state."
-	docker stack ps Tema3-IoT
+	docker stack ps $(NAME)
+
+create-volumes:
+	docker volume create $(NAME)_influxdb_data
+	docker volume create $(NAME)_grafana_data
+	docker volume create $(NAME)_mosquitto_data
+	docker volume create $(NAME)_mosquitto_config
