@@ -34,7 +34,6 @@ curl -XPOST -H "Content-Type: application/json" \
 EOF
 echo "Grafana data source configured successfully."
 
-# Create Grafana dashboard for UPB IoT Data
 curl -XPOST -H "Content-Type: application/json" \
     -u asistent:grafanaSPRC2023 \
     http://sprc3_grafana:3000/api/dashboards/db \
@@ -52,7 +51,7 @@ curl -XPOST -H "Content-Type: application/json" \
                 "datasource": "InfluxDB",
                 "targets": [
                     {
-                        "measurement": "your_measurement",
+                        "measurement": "UPB",
                         "groupBy": [
                             {
                                 "type": "tag",
@@ -81,7 +80,7 @@ curl -XPOST -H "Content-Type: application/json" \
                 "datasource": "InfluxDB",
                 "targets": [
                     {
-                        "measurement": "your_measurement",
+                        "measurement": "UPB",
                         "groupBy": [
                             {
                                 "type": "tag",
@@ -110,7 +109,7 @@ curl -XPOST -H "Content-Type: application/json" \
                 "datasource": "InfluxDB",
                 "targets": [
                     {
-                        "measurement": "your_measurement",
+                        "measurement": "UPB",
                         "groupBy": [
                             {
                                 "type": "tag",
@@ -158,7 +157,83 @@ curl -XPOST -H "Content-Type: application/json" \
         "title": "Battery Dashboard",
         "timezone": "browser",
         "panels": [
-            # ... (dashboard configuration)
+            {
+                "id": 1,
+                "type": "graph",
+                "title": "Battery Level",
+                "datasource": "InfluxDB",
+                "targets": [
+                    {
+                        "measurement": "iot_data",
+                        "groupBy": [
+                            {
+                                "type": "tag",
+                                "params": ["device"]
+                            }
+                        ],
+                        "select": [
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["BAT"]
+                                }
+                            ]
+                        ]
+                    }
+                ],
+                "fieldConfig": {
+                    "unit": "percent",
+                    "decimals": 2
+                }
+            },
+            {
+                "id": 2,
+                "type": "table",
+                "title": "Battery Statistics",
+                "datasource": "InfluxDB",
+                "columns": [
+                    {
+                        "text": "Device",
+                        "type": "string",
+                        "value": "device"
+                    },
+                    {
+                        "text": "Current Value",
+                        "type": "number",
+                        "value": "current"
+                    },
+                    {
+                        "text": "Minimum Value",
+                        "type": "number",
+                        "value": "min"
+                    },
+                    {
+                        "text": "Maximum Value",
+                        "type": "number",
+                        "value": "max"
+                    },
+                    {
+                        "text": "Average Value",
+                        "type": "number",
+                        "value": "avg"
+                    }
+                ],
+                "styles": [
+                    {
+                        "pattern": "Time",
+                        "type": "date",
+                        "alias": "Time",
+                        "dateFormat": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    {
+                        "pattern": "/.*/",
+                        "type": "number",
+                        "alias": "Value",
+                        "decimals": 2
+                    }
+                ],
+                "dataSource": null
+            }
         ],
         "time": {
             "from": "now-48h",
