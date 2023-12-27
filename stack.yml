@@ -38,18 +38,20 @@ services:
     deploy:
       replicas: 1
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=grafana_password
+      - GF_SECURITY_ADMIN_USER=asistent
+      - GF_SECURITY_ADMIN_PASSWORD=grafanaSPRC2023
     ports:
       - "80:3000"
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana:/scripts
+      - ./grafana/logs.txt:/data/logs.txt
+      - ./grafana/db_connect.sh:/data/db_connect.sh
     networks:
       - grafana-db-network
     depends_on:
       - influxdb
       - mosquitto
-    command: /scripts/db_connect.sh
+    command: /data/db_connect.sh
 
   mosquitto:
     image: mosquitto-server:latest

@@ -70,7 +70,8 @@
         "wires": [
             [
                 "83907bc1c63c8cca",
-                "d1ebca6aae476305"
+                "d1ebca6aae476305",
+                "e21aa154377f8a4b"
             ]
         ]
     },
@@ -272,7 +273,7 @@
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "JSON Input Data",
-        "func": "var number = msg.payload;\n\nswitch (number) {\n    case 1:\n        msg.payload = {\n            message: {\n                BAT: 99,\n                HUMID: 40,\n                PRJ: \"SPRC\",\n                TMP: 25.3,\n                status: \"OK\",\n                timestamp: \"2019-11-26 03:54:20 + 03:00\"\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 2:\n        msg.payload = {\n            message: {\n                Alarm: 0,\n                AQI: 12,\n                RSSI: 1550\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 3:\n        \n        break;\n\n    default:\n        // Default action when number doesn't match any case\n        msg.payload = {\n            message: {\n                message: \"This message was invalid\",\n            },\n            topic: \"invalidPayload\"\n        };        \n}\n\nreturn msg;",
+        "func": "var number = msg.payload;\n\nswitch (number) {\n    case 1:\n        msg.payload = {\n            message: {\n                BAT: 99,\n                HUMID: 40,\n                PRJ: \"SPRC\",\n                TMP: 25.3,\n                status: \"OK\",\n                timestamp: \"2019-11-26 03:54:20 + 03:00\"\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 2:\n        msg.payload = {\n            message: {\n                Alarm: 0,\n                AQI: 12,\n                RSSI: 1550\n            },\n            topic: \"Dorinel/Zeus\"\n        };\n        break;\n    default:\n        // Default action when number doesn't match any case\n        msg.payload = {\n            message: {\n                message: \"This message was invalid\",\n            },\n            topic: \"invalidPayload\"\n        };        \n}\n\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -329,7 +330,7 @@
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "msg.measurement",
-        "func": "msg.measurement = \"sensorData\";\nreturn msg;",
+        "func": "//msg.measurement = msg.topic;\nmsg.measurement = \"iot_data\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -340,7 +341,8 @@
         "y": 60,
         "wires": [
             [
-                "2e4ba6dacdc16090"
+                "2e4ba6dacdc16090",
+                "8cc1485bb77a6ecb"
             ]
         ]
     },
@@ -366,5 +368,60 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "8cc1485bb77a6ecb",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Measurement",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "measurement",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "e21aa154377f8a4b",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "msg.measurement",
+        "func": "msg.measurement = msg.topic;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "73b26f6f8292eab1"
+            ]
+        ]
+    },
+    {
+        "id": "73b26f6f8292eab1",
+        "type": "influxdb out",
+        "z": "6a8edfdc97cb68bb",
+        "influxdb": "8140b2d2a8cd9522",
+        "name": "InfluxDB",
+        "measurement": "",
+        "precision": "",
+        "retentionPolicy": "",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "UPB",
+        "bucket": "iot_data",
+        "x": 540,
+        "y": 180,
+        "wires": []
     }
 ]
