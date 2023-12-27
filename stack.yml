@@ -17,7 +17,7 @@ networks:
 
 services:
   influxdb:
-    image: influxdb:1.8
+    image: influxdb:1.7
     deploy:
       replicas: 1
     environment:
@@ -27,8 +27,6 @@ services:
       - INFLUXDB_USER=user
       - INFLUXDB_USER_PASSWORD=user_password
       - organisation=UPB
-    ports:
-      - "8086:8086"
     volumes:
       - influxdb_data:/var/lib/influxdb
     networks:
@@ -45,11 +43,13 @@ services:
       - "80:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana:/scripts
     networks:
       - grafana-db-network
     depends_on:
       - influxdb
       - mosquitto
+    command: /scripts/db_connect.sh
 
   mosquitto:
     image: mosquitto-server:latest
