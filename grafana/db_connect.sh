@@ -12,7 +12,7 @@ echo "Script started"
 echo "Current working directory: $(pwd)"
 
 # Grafana Credentials
-GRAFANA_USER="admin"
+GRAFANA_USER="asistent"
 GRAFANA_PASSWORD="CHANGE_ME"
 
 # InfluxDB Credentials

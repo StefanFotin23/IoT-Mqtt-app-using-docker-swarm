@@ -1,0 +1,107 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@8.19.4
+2 info using node@v16.20.2
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 1ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
+6 timing config:load:builtin Completed in 1ms
+7 warn config production Use `--omit=dev` instead.
+8 timing config:load:cli Completed in 3ms
+9 timing config:load:env Completed in 0ms
+10 timing config:load:file:/data/.npmrc Completed in 0ms
+11 timing config:load:project Completed in 4ms
+12 timing config:load:file:/usr/src/node-red/.npmrc Completed in 0ms
+13 timing config:load:user Completed in 0ms
+14 timing config:load:file:/usr/local/etc/npmrc Completed in 5ms
+15 timing config:load:global Completed in 5ms
+16 timing config:load:validate Completed in 0ms
+17 timing config:load:credentials Completed in 1ms
+18 timing config:load:setEnvs Completed in 0ms
+19 timing config:load Completed in 15ms
+20 timing npm:load:configload Completed in 15ms
+21 timing npm:load:mkdirpcache Completed in 2ms
+22 timing npm:load:mkdirplogs Completed in 2ms
+23 verbose title npm install node-red-contrib-moment@5.0.0
+24 verbose argv "install" "--no-audit" "--no-update-notifier" "--no-fund" "--save" "--save-prefix" "~" "--production" "--engine-strict" "node-red-contrib-moment@5.0.0"
+25 timing npm:load:setTitle Completed in 1ms
+26 timing config:load:flatten Completed in 2ms
+27 timing npm:load:display Completed in 4ms
+28 verbose logfile logs-max:10 dir:/data/.npm/_logs
+29 verbose logfile /data/.npm/_logs/2023-12-28T14_27_31_882Z-debug-0.log
+30 timing npm:load:logFile Completed in 12ms
+31 timing npm:load:timers Completed in 0ms
+32 timing npm:load:configScope Completed in 0ms
+33 timing npm:load Completed in 37ms
+34 timing arborist:ctor Completed in 0ms
+35 silly logfile start cleaning logs, removing 2 files
+36 silly logfile done cleaning log files
+37 timing idealTree:init Completed in 20ms
+38 timing idealTree:userRequests Completed in 2ms
+39 silly idealTree buildDeps
+40 silly fetch manifest node-red-contrib-moment@5.0.0
+41 timing arborist:ctor Completed in 0ms
+42 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-moment 50ms (cache hit)
+43 silly placeDep ROOT node-red-contrib-moment@5.0.0 OK for: node-red-project@0.0.1 want: 5.0.0
+44 silly fetch manifest moment@^2.29.0
+45 silly fetch manifest moment-parseformat@^4.0.0
+46 silly fetch manifest moment-timezone@^0.5.31
+47 silly fetch manifest os-locale-s@^1.0.8
+48 http fetch GET 200 https://registry.npmjs.org/moment-timezone 43ms (cache hit)
+49 http fetch GET 200 https://registry.npmjs.org/moment 47ms (cache hit)
+50 http fetch GET 200 https://registry.npmjs.org/moment-parseformat 49ms (cache hit)
+51 http fetch GET 200 https://registry.npmjs.org/os-locale-s 49ms (cache hit)
+52 timing idealTree:#root Completed in 110ms
+53 silly placeDep ROOT moment@2.30.1 OK for: node-red-contrib-moment@5.0.0 want: ^2.29.0
+54 silly placeDep ROOT moment-parseformat@4.0.0 OK for: node-red-contrib-moment@5.0.0 want: ^4.0.0
+55 silly placeDep ROOT moment-timezone@0.5.43 OK for: node-red-contrib-moment@5.0.0 want: ^0.5.31
+56 silly placeDep ROOT os-locale-s@1.0.8 OK for: node-red-contrib-moment@5.0.0 want: ^1.0.8
+57 silly fetch manifest lcid@^3.0.0
+58 http fetch GET 200 https://registry.npmjs.org/lcid 45ms (cache hit)
+59 timing idealTree:node_modules/node-red-contrib-moment Completed in 61ms
+60 timing idealTree:node_modules/moment Completed in 0ms
+61 timing idealTree:node_modules/moment-parseformat Completed in 0ms
+62 timing idealTree:node_modules/moment-timezone Completed in 0ms
+63 silly placeDep ROOT lcid@3.1.1 OK for: os-locale-s@1.0.8 want: ^3.0.0
+64 silly fetch manifest invert-kv@^3.0.0
+65 http fetch GET 200 https://registry.npmjs.org/invert-kv 41ms (cache hit)
+66 timing idealTree:node_modules/os-locale-s Completed in 44ms
+67 silly placeDep ROOT invert-kv@3.0.1 OK for: lcid@3.1.1 want: ^3.0.0
+68 timing idealTree:node_modules/lcid Completed in 1ms
+69 timing idealTree:node_modules/invert-kv Completed in 0ms
+70 timing idealTree:buildDeps Completed in 220ms
+71 timing idealTree:fixDepFlags Completed in 1ms
+72 timing idealTree Completed in 244ms
+73 timing reify:loadTrees Completed in 245ms
+74 timing reify:diffTrees Completed in 1ms
+75 silly reify moves {}
+76 timing reify:retireShallow Completed in 1ms
+77 timing reify:createSparse Completed in 10ms
+78 timing reify:trashOmits Completed in 0ms
+79 timing reify:loadBundles Completed in 0ms
+80 timing reifyNode:node_modules/invert-kv Completed in 145ms
+81 timing reifyNode:node_modules/lcid Completed in 163ms
+82 timing reifyNode:node_modules/os-locale-s Completed in 173ms
+83 timing reifyNode:node_modules/moment-parseformat Completed in 218ms
+84 timing reifyNode:node_modules/node-red-contrib-moment Completed in 350ms
+85 timing reifyNode:node_modules/moment-timezone Completed in 623ms
+86 timing reifyNode:node_modules/moment Completed in 1506ms
+87 timing reify:unpack Completed in 1507ms
+88 timing reify:unretire Completed in 0ms
+89 timing build:queue Completed in 3ms
+90 timing build:deps Completed in 3ms
+91 timing build Completed in 3ms
+92 timing reify:build Completed in 4ms
+93 timing reify:trash Completed in 0ms
+94 timing reify:save Completed in 10ms
+95 timing reify Completed in 1794ms
+96 silly ADD node_modules/invert-kv
+97 silly ADD node_modules/lcid
+98 silly ADD node_modules/os-locale-s
+99 silly ADD node_modules/moment-timezone
+100 silly ADD node_modules/moment-parseformat
+101 silly ADD node_modules/moment
+102 silly ADD node_modules/node-red-contrib-moment
+103 timing command:install Completed in 1799ms
+104 verbose exit 0
+105 timing npm Completed in 1901ms
+106 info ok

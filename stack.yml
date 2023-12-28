@@ -51,7 +51,7 @@ services:
     depends_on:
       - influxdb
       - mosquitto
-    command: sh -c "sleep 10 && ./data/db_connect.sh"
+    command: ./db_connect.sh
 
   mosquitto:
     image: mosquitto-server

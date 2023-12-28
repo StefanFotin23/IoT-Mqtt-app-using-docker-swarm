@@ -69,9 +69,8 @@
         "y": 60,
         "wires": [
             [
-                "83907bc1c63c8cca",
                 "d1ebca6aae476305",
-                "e21aa154377f8a4b"
+                "7f446d00a9b24824"
             ]
         ]
     },
@@ -81,8 +80,8 @@
         "z": "6a8edfdc97cb68bb",
         "influxdb": "8140b2d2a8cd9522",
         "name": "InfluxDB",
-        "measurement": "",
-        "precision": "",
+        "measurement": "iot_data",
+        "precision": "s",
         "retentionPolicy": "",
         "database": "database",
         "precisionV18FluxV20": "ms",
@@ -326,102 +325,41 @@
         ]
     },
     {
-        "id": "83907bc1c63c8cca",
+        "id": "7f446d00a9b24824",
         "type": "function",
         "z": "6a8edfdc97cb68bb",
-        "name": "iot_data",
-        "func": "msg.measurement = \"iot_data\";\nreturn msg;",
+        "name": "Format Data",
+        "func": "// Assuming that payload contains the desired data\nvar fields = msg.payload;\n\n// Log a message indicating that a message has been received\nnode.log(`Received a message by topic [${msg.topic}]`);\n\n// Set the measurement name\nvar measurement = \"iot_data\";\n\n// Use the timestamp from the payload or default to the current time\nvar timestamp = fields.timestamp ? parseDateString(fields.timestamp) : new Date();\n\n// Check if the timestamp is valid\nif (timestamp && !isNaN(timestamp.getTime())) {\n    // Convert the timestamp to a string in the desired format\n    var formattedTimestamp = timestamp.toLocaleString(\"en-GB\", { timeZone: \"Europe/Bucharest\" });\n\n    // Build the InfluxDB Line Protocol\n    var influxLine = `${measurement}`;\n    \n    for (var field in fields) {\n        if (field !== 'timestamp') {\n            var elem = `,${msg.topic.replace('/', '.')}.${field}=${fields[field]}`;\n            influxLine += elem;\n            // Log each field value\n            node.log(`${new Date()} ${elem}`);\n        }\n    }\n\n    // Add the timestamp as the last field in the InfluxDB Line Protocol\n    influxLine += ` ${formattedTimestamp}`;\n    node.log(`${new Date()} ${formattedTimestamp}`);\n\n    // Set the payload for the new Line Protocol format\n    msg.payload = influxLine;\n} else {\n    // Handle the case where the timestamp is not valid\n    msg.payload = \"Invalid timestamp\";\n    // Log an error message\n    node.error(\"Invalid timestamp received\");\n}\nreturn msg;\n\nfunction parseDateString(dateString) {\n    // Format the dateString\n    dateString = dateString.slice(0, -6) + dateString.slice(-5);\n    \n    // Split the date string into its components\n    const [datePart, timePart, offsetPart] = dateString.split(' ');\n\n    // Split the date component into year, month, and day\n    const [year, month, day] = datePart.split('-');\n\n    // Split the time component into hours, minutes, and seconds\n    const [hours, minutes, seconds] = timePart.split(':');\n\n    // Split the offset component into hours and minutes\n    const [offsetHours, offsetMinutes] = offsetPart.split(':');\n\n    // Create a new Date object with the extracted components\n    const parsedDate = new Date(\n        parseInt(year),\n        parseInt(month) - 1, // Months are 0-based in JavaScript Dates\n        parseInt(day),\n        parseInt(hours),\n        parseInt(minutes),\n        parseInt(seconds)\n    );\n\n    // Adjust the date based on the time zone offset\n    parsedDate.setHours(parsedDate.getHours() - parseInt(offsetHours));\n    parsedDate.setMinutes(parsedDate.getMinutes() - parseInt(offsetMinutes));\n\n    return parsedDate;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 340,
+        "x": 350,
         "y": 60,
         "wires": [
             [
-                "2e4ba6dacdc16090"
+                "2e4ba6dacdc16090",
+                "84e98c94accb4d5e"
             ]
         ]
     },
     {
-        "id": "4236a527c335c211",
-        "type": "switch",
-        "z": "6a8edfdc97cb68bb",
-        "name": "Debug on / off switch",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "jsonata_exp",
-                "v": "$env('DEBUG_DATA_FLOW')",
-                "vt": "jsonata"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 940,
-        "y": 140,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "e21aa154377f8a4b",
-        "type": "function",
-        "z": "6a8edfdc97cb68bb",
-        "name": "msg.measurement",
-        "func": "msg.measurement = msg.topic;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 120,
-        "wires": [
-            [
-                "73b26f6f8292eab1",
-                "176e5f6b30e3cc3f"
-            ]
-        ]
-    },
-    {
-        "id": "73b26f6f8292eab1",
-        "type": "influxdb out",
-        "z": "6a8edfdc97cb68bb",
-        "influxdb": "8140b2d2a8cd9522",
-        "name": "InfluxDB",
-        "measurement": "",
-        "precision": "",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ms",
-        "retentionPolicyV18Flux": "",
-        "org": "UPB",
-        "bucket": "iot_data",
-        "x": 560,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "176e5f6b30e3cc3f",
+        "id": "84e98c94accb4d5e",
         "type": "debug",
         "z": "6a8edfdc97cb68bb",
-        "name": "Measurement",
+        "name": "InfluxDB input",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "measurement",
+        "complete": "payload",
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 580,
-        "y": 180,
+        "y": 120,
         "wires": []
     }
 ]
