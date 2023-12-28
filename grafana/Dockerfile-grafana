@@ -1,0 +1,6 @@
+FROM grafana/grafana:latest
+
+WORKDIR /data
+
+# Copy the script and set execute permissions
+COPY ./grafana/db_connect.sh .

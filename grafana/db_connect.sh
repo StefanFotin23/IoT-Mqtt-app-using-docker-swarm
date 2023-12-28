@@ -6,8 +6,18 @@ echo "" > "$LOG_FILE"
 # Redirect stdout and stderr to the log file
 exec > >(tee -a "$LOG_FILE") 2>&1
 
+echo "Script started"
+
 # Print current working directory
 echo "Current working directory: $(pwd)"
+
+# Grafana Credentials
+GRAFANA_USER="admin"
+GRAFANA_PASSWORD="grafana_password"
+
+# InfluxDB Credentials
+INFLUXDB_USER="user"
+INFLUXDB_PASSWORD="user_password"
 
 # Wait for InfluxDB to be ready
 until curl -G "http://sprc3_influxdb:8086/ping" >/dev/null 2>&1; do
@@ -16,9 +26,9 @@ until curl -G "http://sprc3_influxdb:8086/ping" >/dev/null 2>&1; do
 done
 echo "InfluxDB is ready."
 
-# Create InfluxDB data source in Grafana
+# Configure Grafana data source
 curl -XPOST -H "Content-Type: application/json" \
-    -u asistent:grafanaSPRC2023 \
+    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
     http://sprc3_grafana:3000/api/datasources \
     -d @- <<EOF
 {
@@ -27,31 +37,34 @@ curl -XPOST -H "Content-Type: application/json" \
     "url": "http://sprc3_influxdb:8086",
     "access": "proxy",
     "database": "iot_data",
-    "user": "user",
-    "password": "user_password",
-    "basicAuth": false
+    "user": "$INFLUXDB_USER",
+    "password": "$INFLUXDB_PASSWORD",
+    "basicAuth": false,
+    "jsonData": {
+        "organization": "UPB"
+    }
 }
 EOF
-echo "Grafana data source configured successfully."
 
+# Create Grafana dashboard with a single graph panel aggregating all fields for all stations
 curl -XPOST -H "Content-Type: application/json" \
-    -u asistent:grafanaSPRC2023 \
+    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
     http://sprc3_grafana:3000/api/dashboards/db \
     -d @- <<EOF
 {
     "dashboard": {
         "id": null,
-        "title": "UPB IoT Data",
+        "title": "Aggregated IoT Data",
         "timezone": "browser",
         "panels": [
             {
                 "id": 1,
                 "type": "graph",
-                "title": "Battery Percentage",
+                "title": "Aggregated IoT Data",
                 "datasource": "InfluxDB",
                 "targets": [
                     {
-                        "measurement": "UPB",
+                        "measurement": "iot_data",
                         "groupBy": [
                             {
                                 "type": "tag",
@@ -62,7 +75,55 @@ curl -XPOST -H "Content-Type: application/json" \
                             [
                                 {
                                     "type": "field",
-                                    "params": ["UPB.RPi_1.BAT"]
+                                    "params": ["UPB.RPi_1.BAT"],
+                                    "alias": "UPB/RPi Battery Percentage",
+                                    "groupBy": [],
+                                    "color": "#3366cc"
+                                }
+                            ],
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["Dorinel.Zeus.Alarm"],
+                                    "alias": "Dorinel/Zeus Alarm",
+                                    "groupBy": [],
+                                    "color": "#dc3912"
+                                }
+                            ],
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["UPB.RPi_1.HUMID"],
+                                    "alias": "UPB/RPi Humidity",
+                                    "groupBy": [],
+                                    "color": "#ff9900"
+                                }
+                            ],
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["Dorinel.Zeus.RSSI"],
+                                    "alias": "Dorinel/Zeus RSSI",
+                                    "groupBy": [],
+                                    "color": "#109618"
+                                }
+                            ],
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["UPB.RPi_1.TEMP"],
+                                    "alias": "UPB/RPi Temperature",
+                                    "groupBy": [],
+                                    "color": "#990099"
+                                }
+                            ],
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["Dorinel.Zeus.AQI"],
+                                    "alias": "Dorinel/Zeus AQI",
+                                    "groupBy": [],
+                                    "color": "#0099c6"
                                 }
                             ]
                         ]
@@ -71,64 +132,18 @@ curl -XPOST -H "Content-Type: application/json" \
                 "fieldConfig": {
                     "unit": "percent",
                     "decimals": 2
-                }
-            },
-            {
-                "id": 2,
-                "type": "graph",
-                "title": "Humidity",
-                "datasource": "InfluxDB",
-                "targets": [
-                    {
-                        "measurement": "UPB",
-                        "groupBy": [
-                            {
-                                "type": "tag",
-                                "params": ["topic"]
-                            }
-                        ],
-                        "select": [
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["UPB.RPi_1.HUMID"]
-                                }
-                            ]
-                        ]
-                    }
-                ],
-                "fieldConfig": {
-                    "unit": "percent",
-                    "decimals": 2
-                }
-            },
-            {
-                "id": 3,
-                "type": "graph",
-                "title": "Temperature",
-                "datasource": "InfluxDB",
-                "targets": [
-                    {
-                        "measurement": "UPB",
-                        "groupBy": [
-                            {
-                                "type": "tag",
-                                "params": ["topic"]
-                            }
-                        ],
-                        "select": [
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["UPB.RPi_1.TEMP"]
-                                }
-                            ]
-                        ]
-                    }
-                ],
-                "fieldConfig": {
-                    "unit": "temperature",
-                    "decimals": 2
+                },
+                "legend": {
+                    "show": true,
+                    "values": false,
+                    "min": false,
+                    "max": false,
+                    "current": false,
+                    "total": false,
+                    "avg": false
+                },
+                "color": {
+                    "mode": "palette-classic"
                 }
             }
         ],
@@ -141,26 +156,25 @@ curl -XPOST -H "Content-Type: application/json" \
         "version": 0
     },
     "folderId": 0,
-    "overwrite": false
+    "overwrite": true
 }
 EOF
-echo "Grafana dashboard for UPB IoT Data created successfully."
 
-# Create Grafana dashboard for Battery Monitoring
+# Create Grafana dashboard with a single graph panel for BAT field for Dorinel/Zeus and UPB/RPi stations
 curl -XPOST -H "Content-Type: application/json" \
-    -u asistent:grafanaSPRC2023 \
+    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
     http://sprc3_grafana:3000/api/dashboards/db \
     -d @- <<EOF
 {
     "dashboard": {
         "id": null,
-        "title": "Battery Dashboard",
+        "title": "Battery Level Monitoring",
         "timezone": "browser",
         "panels": [
             {
                 "id": 1,
                 "type": "graph",
-                "title": "Battery Level",
+                "title": "Battery Level Monitoring",
                 "datasource": "InfluxDB",
                 "targets": [
                     {
@@ -175,7 +189,19 @@ curl -XPOST -H "Content-Type: application/json" \
                             [
                                 {
                                     "type": "field",
-                                    "params": ["BAT"]
+                                    "params": ["Dorinel.Zeus.BAT"],
+                                    "alias": "Dorinel/Zeus Battery Percentage",
+                                    "groupBy": [],
+                                    "color": "#3366cc"
+                                }
+                            ],
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["UPB.RPi_1.BAT"],
+                                    "alias": "UPB/RPi Battery Percentage",
+                                    "groupBy": [],
+                                    "color": "#dc3912"
                                 }
                             ]
                         ]
@@ -184,55 +210,19 @@ curl -XPOST -H "Content-Type: application/json" \
                 "fieldConfig": {
                     "unit": "percent",
                     "decimals": 2
+                },
+                "legend": {
+                    "show": true,
+                    "values": false,
+                    "min": false,
+                    "max": false,
+                    "current": false,
+                    "total": false,
+                    "avg": false
+                },
+                "color": {
+                    "mode": "palette-classic"
                 }
-            },
-            {
-                "id": 2,
-                "type": "table",
-                "title": "Battery Statistics",
-                "datasource": "InfluxDB",
-                "columns": [
-                    {
-                        "text": "Device",
-                        "type": "string",
-                        "value": "device"
-                    },
-                    {
-                        "text": "Current Value",
-                        "type": "number",
-                        "value": "current"
-                    },
-                    {
-                        "text": "Minimum Value",
-                        "type": "number",
-                        "value": "min"
-                    },
-                    {
-                        "text": "Maximum Value",
-                        "type": "number",
-                        "value": "max"
-                    },
-                    {
-                        "text": "Average Value",
-                        "type": "number",
-                        "value": "avg"
-                    }
-                ],
-                "styles": [
-                    {
-                        "pattern": "Time",
-                        "type": "date",
-                        "alias": "Time",
-                        "dateFormat": "YYYY-MM-DD HH:mm:ss"
-                    },
-                    {
-                        "pattern": "/.*/",
-                        "type": "number",
-                        "alias": "Value",
-                        "decimals": 2
-                    }
-                ],
-                "dataSource": null
             }
         ],
         "time": {
@@ -244,14 +234,9 @@ curl -XPOST -H "Content-Type: application/json" \
         "version": 0
     },
     "folderId": 0,
-    "overwrite": false
+    "overwrite": true
 }
 EOF
-echo "Grafana dashboard for Battery Monitoring created successfully."
-
-# Set data retention policy in InfluxDB
-curl -i -XPOST "http://sprc3_influxdb:8086/query" --data-urlencode "q=CREATE RETENTION POLICY autogen ON iot_data DURATION 30d REPLICATION 1 DEFAULT"
-echo "Data retention policy set successfully."
 
 # Log script completion
 echo "Script execution completed."
