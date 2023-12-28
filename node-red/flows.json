@@ -70,8 +70,7 @@
         "wires": [
             [
                 "83907bc1c63c8cca",
-                "d1ebca6aae476305",
-                "e21aa154377f8a4b"
+                "d1ebca6aae476305"
             ]
         ]
     },
@@ -367,61 +366,5 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "e21aa154377f8a4b",
-        "type": "function",
-        "z": "6a8edfdc97cb68bb",
-        "name": "msg.measurement",
-        "func": "msg.measurement = msg.topic;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 370,
-        "y": 120,
-        "wires": [
-            [
-                "73b26f6f8292eab1",
-                "176e5f6b30e3cc3f"
-            ]
-        ]
-    },
-    {
-        "id": "73b26f6f8292eab1",
-        "type": "influxdb out",
-        "z": "6a8edfdc97cb68bb",
-        "influxdb": "8140b2d2a8cd9522",
-        "name": "InfluxDB",
-        "measurement": "",
-        "precision": "",
-        "retentionPolicy": "",
-        "database": "database",
-        "precisionV18FluxV20": "ms",
-        "retentionPolicyV18Flux": "",
-        "org": "UPB",
-        "bucket": "iot_data",
-        "x": 560,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "176e5f6b30e3cc3f",
-        "type": "debug",
-        "z": "6a8edfdc97cb68bb",
-        "name": "Measurement",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "measurement",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 580,
-        "y": 180,
-        "wires": []
     }
 ]

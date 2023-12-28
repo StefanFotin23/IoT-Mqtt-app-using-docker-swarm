@@ -1,0 +1,14 @@
+
+Script started
+Current working directory: /data
+InfluxDB is ready.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  14822   7814 --:--:-- --:--:-- --:--:-- 23000
+{"datasource":{"id":3,"uid":"e0917c53-91d9-45a0-9e14-a487fc5a0e8c","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":3,"message":"Datasource added","name":"InfluxDB"}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4093  100   197  100  3896   5319   102k --:--:-- --:--:-- --:--:--  111k
+{"folderUid":"","id":13,"slug":"aggregated-iot-data","status":"success","uid":"d153586c-8f79-4174-9eed-d27066cc4434","url":"/d/d153586c-8f79-4174-9eed-d27066cc4434/aggregated-iot-data","version":1}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2476  100   207  100  2269   7102  77854 --:--:-- --:--:-- --:--:-- 85379
+{"folderUid":"","id":14,"slug":"battery-level-monitoring","status":"success","uid":"a80f1f58-55aa-423d-9273-f7798261a6a8","url":"/d/a80f1f58-55aa-423d-9273-f7798261a6a8/battery-level-monitoring","version":1}Script execution completed.

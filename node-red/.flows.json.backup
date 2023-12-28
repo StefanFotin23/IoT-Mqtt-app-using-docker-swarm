@@ -89,7 +89,7 @@
         "retentionPolicyV18Flux": "",
         "org": "UPB",
         "bucket": "iot_data",
-        "x": 540,
+        "x": 560,
         "y": 60,
         "wires": []
     },
@@ -329,20 +329,19 @@
         "id": "83907bc1c63c8cca",
         "type": "function",
         "z": "6a8edfdc97cb68bb",
-        "name": "msg.measurement",
-        "func": "//msg.measurement = msg.topic;\nmsg.measurement = \"iot_data\";\nreturn msg;",
+        "name": "iot_data",
+        "func": "msg.measurement = \"iot_data\";\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 330,
+        "x": 340,
         "y": 60,
         "wires": [
             [
-                "2e4ba6dacdc16090",
-                "8cc1485bb77a6ecb"
+                "2e4ba6dacdc16090"
             ]
         ]
     },
@@ -370,23 +369,6 @@
         ]
     },
     {
-        "id": "8cc1485bb77a6ecb",
-        "type": "debug",
-        "z": "6a8edfdc97cb68bb",
-        "name": "Measurement",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "measurement",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 560,
-        "y": 120,
-        "wires": []
-    },
-    {
         "id": "e21aa154377f8a4b",
         "type": "function",
         "z": "6a8edfdc97cb68bb",
@@ -402,7 +384,8 @@
         "y": 120,
         "wires": [
             [
-                "73b26f6f8292eab1"
+                "73b26f6f8292eab1",
+                "176e5f6b30e3cc3f"
             ]
         ]
     },
@@ -420,7 +403,24 @@
         "retentionPolicyV18Flux": "",
         "org": "UPB",
         "bucket": "iot_data",
-        "x": 540,
+        "x": 560,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "176e5f6b30e3cc3f",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Measurement",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "measurement",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
         "y": 180,
         "wires": []
     }
