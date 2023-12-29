@@ -131,7 +131,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 980,
-        "y": 200,
+        "y": 60,
         "wires": [
             [
                 "c87793b6a9b4d586"
@@ -155,7 +155,7 @@
         "senderr": false,
         "headers": [],
         "x": 970,
-        "y": 240,
+        "y": 100,
         "wires": [
             [
                 "8578a0a3abaac3bb"
@@ -176,7 +176,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 980,
-        "y": 280,
+        "y": 140,
         "wires": []
     },
     {
@@ -202,8 +202,8 @@
                 "valueValue": ""
             }
         ],
-        "x": 410,
-        "y": 400,
+        "x": 670,
+        "y": 340,
         "wires": [
             [
                 "589fce16a72abf47"
@@ -242,8 +242,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 630,
-        "y": 400,
+        "x": 890,
+        "y": 340,
         "wires": []
     },
     {
@@ -258,8 +258,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 160,
-        "y": 400,
+        "x": 420,
+        "y": 340,
         "wires": [
             [
                 "a588503d214c13ff",
@@ -300,8 +300,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 420,
-        "y": 440,
+        "x": 680,
+        "y": 380,
         "wires": []
     },
     {
@@ -359,5 +359,44 @@
         "x": 600,
         "y": 180,
         "wires": []
+    },
+    {
+        "id": "703e522f3aeb9d8c",
+        "type": "inject",
+        "z": "6a8edfdc97cb68bb",
+        "name": "Populate InfluxDB",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 150,
+        "y": 520,
+        "wires": [
+            [
+                "88fe7e06fda7f137"
+            ]
+        ]
+    },
+    {
+        "id": "88fe7e06fda7f137",
+        "type": "function",
+        "z": "6a8edfdc97cb68bb",
+        "name": "JSON Input Data",
+        "func": "const numberOfIterations = 1000;\n\nfunction getRandomInt(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\nfunction getRandomBAT() {\n    return getRandomInt(0, 100);\n}\n\nfunction getRandomHUMID() {\n    return getRandomInt(30, 70);\n}\n\nfunction getRandomTMP() {\n    return getRandomInt(10, 40) + parseFloat(Math.random().toFixed(1));\n}\n\nfunction getRandomAlarm() {\n    return getRandomInt(0, 1);\n}\n\nfunction getRandomAQI() {\n    return getRandomInt(0, 50);\n}\n\nfunction getRandomRSSI() {\n    return getRandomInt(1300, 1700);\n}\n\nfunction getRandomTimestamp() {\n    var year = getRandomInt(2018, 2023);\n    var month = getRandomInt(1, 12);\n    var day = getRandomInt(1, 28);\n    var hours = getRandomInt(0, 23);\n    var minutes = getRandomInt(0, 59);\n    var seconds = getRandomInt(0, 59);\n\n    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} +03:00`;\n}\n\nfor (let i = 0; i < numberOfIterations; i++) {\n    var caseNumber = getRandomInt(1,4);\n    switch (caseNumber) {\n        case 1:\n            msg.payload = {\n                message: {\n                    BAT: getRandomBAT(),\n                    HUMID: getRandomHUMID(),\n                    PRJ: \"SPRC\",\n                    TMP: getRandomTMP(),\n                    status: \"OK\",\n                    timestamp: getRandomTimestamp()\n                },\n                topic: \"UPB/RPi_1\"\n            };\n            break;\n        case 2:\n            msg.payload = {\n                message: {\n                    Alarm: getRandomAlarm(),\n                    AQI: getRandomAQI(),\n                    RSSI: getRandomRSSI()\n                },\n                topic: \"Dorinel/Zeus\"\n            };\n            break;\n        case 3:\n            msg.payload = {\n                message: {\n                    BAT: getRandomBAT(),\n                    HUMID: getRandomHUMID(),\n                    PRJ: \"SPRC\",\n                    TMP: getRandomTMP(),\n                    status: \"OK\"\n                },\n                topic: \"UPB/RPi_1\"\n            };\n            break;\n        case 4:\n            msg.payload = {\n                message: {\n                    Alarm: getRandomAlarm(),\n                    AQI: getRandomAQI(),\n                    RSSI: getRandomRSSI(),\n                    timestamp: getRandomTimestamp()\n                },\n                topic: \"Dorinel/Zeus\"\n            };\n            break;\n        default:\n            // Default action when number doesn't match any case\n            msg.payload = {\n                message: {\n                    message: \"This message was invalid\",\n                },\n                topic: \"invalidPayload\"\n            };\n    }\n    node.send(msg);\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "0e1a609ac829dbfe"
+            ]
+        ]
     }
 ]
