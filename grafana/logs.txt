@@ -4,14 +4,16 @@ Waiting for InfluxDB...
 Waiting for InfluxDB...
 Waiting for InfluxDB...
 Waiting for InfluxDB...
+Waiting for InfluxDB...
+Waiting for InfluxDB...
 InfluxDB is ready.
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  10227   5391 --:--:-- --:--:-- --:--:-- 15812
-{"datasource":{"id":1,"uid":"dc503fc8-649e-4ce2-8374-15383cad1b54","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  16889   8903 --:--:-- --:--:-- --:--:-- 26172
+{"datasource":{"id":1,"uid":"f69399cb-b0bd-4592-ab5d-13125f6b8819","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4092  100   196  100  3896   7330   142k --:--:-- --:--:-- --:--:--  153k
-{"folderUid":"","id":1,"slug":"aggregated-iot-data","status":"success","uid":"fbf28d57-238c-46bf-a775-fe7225b88a89","url":"/d/fbf28d57-238c-46bf-a775-fe7225b88a89/aggregated-iot-data","version":1}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4092  100   196  100  3896   5759   111k --:--:-- --:--:-- --:--:--  121k
+{"folderUid":"","id":1,"slug":"aggregated-iot-data","status":"success","uid":"c4d37e0a-0584-4a39-90f4-0f05879baf19","url":"/d/c4d37e0a-0584-4a39-90f4-0f05879baf19/aggregated-iot-data","version":1}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2475  100   206  100  2269   8483  93443 --:--:-- --:--:-- --:--:--  100k
-{"folderUid":"","id":2,"slug":"battery-level-monitoring","status":"success","uid":"d6b15b28-9f4f-414d-bf1c-90c90a3e79c3","url":"/d/d6b15b28-9f4f-414d-bf1c-90c90a3e79c3/battery-level-monitoring","version":1}Initialization completed.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2475  100   206  100  2269   7570  83388 --:--:-- --:--:-- --:--:-- 91666
+{"folderUid":"","id":2,"slug":"battery-level-monitoring","status":"success","uid":"c481bf7b-940d-4152-9b85-6827e221704b","url":"/d/c481bf7b-940d-4152-9b85-6827e221704b/battery-level-monitoring","version":1}Initialization completed.
