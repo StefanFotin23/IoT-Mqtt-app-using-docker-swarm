@@ -130,8 +130,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 140,
-        "y": 260,
+        "x": 980,
+        "y": 200,
         "wires": [
             [
                 "c87793b6a9b4d586"
@@ -154,8 +154,8 @@
         "authType": "",
         "senderr": false,
         "headers": [],
-        "x": 330,
-        "y": 260,
+        "x": 970,
+        "y": 240,
         "wires": [
             [
                 "8578a0a3abaac3bb"
@@ -175,8 +175,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 520,
-        "y": 260,
+        "x": 980,
+        "y": 280,
         "wires": []
     },
     {
@@ -203,7 +203,7 @@
             }
         ],
         "x": 410,
-        "y": 600,
+        "y": 500,
         "wires": [
             [
                 "589fce16a72abf47"
@@ -222,7 +222,7 @@
         "onceDelay": 0.1,
         "topic": "",
         "x": 190,
-        "y": 380,
+        "y": 280,
         "wires": [
             [
                 "05c394af3692ddd2"
@@ -243,7 +243,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 650,
-        "y": 600,
+        "y": 500,
         "wires": []
     },
     {
@@ -259,7 +259,7 @@
         "finalize": "",
         "libs": [],
         "x": 160,
-        "y": 600,
+        "y": 500,
         "wires": [
             [
                 "a588503d214c13ff",
@@ -280,7 +280,7 @@
         "finalize": "",
         "libs": [],
         "x": 150,
-        "y": 520,
+        "y": 420,
         "wires": [
             [
                 "0e1a609ac829dbfe"
@@ -301,7 +301,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 420,
-        "y": 660,
+        "y": 560,
         "wires": []
     },
     {
@@ -317,7 +317,7 @@
         "finalize": "",
         "libs": [],
         "x": 190,
-        "y": 460,
+        "y": 360,
         "wires": [
             [
                 "c3cb3ad107b502c7"
@@ -329,7 +329,7 @@
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "Format Data",
-        "func": "// Get the JSON input from MQTT message\nvar fields = msg.payload;\n\n// Log a message indicating that a message has been received\nnode.log(`Received a message by topic [${msg.topic}]`);\n\n// Set the measurement name\nmsg.measurement = \"iot_data\";\n\n// Use the timestamp from the payload or default to the current time\nvar timestamp;\nif (fields.timestamp) {\n    timestamp = parseDateString(fields.timestamp);\n    node.log(`Data timestamp is ${fields.timestamp}`);\n} else {\n    timestamp = new Date();\n    node.log(\"Data timestamp is NOW\");\n}\nvar time = timestamp.getTime();\n\n// Check if the timestamp is valid\nif (timestamp && !isNaN(time)) {\n    var output = {};\n\n    // Filter and log only numerical fields\n    for (const [field, value] of Object.entries(fields)) {\n        if (typeof value === \"number\") {\n            node.log(`${msg.topic}.${field} ${value}`);\n            // Include only numerical fields in the message\n            output[field] = value;\n        }\n    }\n    msg.payload = output;\n} else {\n    // Handle the case where the timestamp is not valid\n    msg.payload = \"Invalid timestamp\";\n    // Log an error message\n    node.error(\"Invalid timestamp received\");\n}\nreturn msg;\n\nfunction parseDateString(dateString) {\n    // Format the dateString\n    dateString = dateString.slice(0, -6) + dateString.slice(-5);\n    \n    // Split the date string into its components\n    const [datePart, timePart, offsetPart] = dateString.split(' ');\n\n    // Split the date component into year, month, and day\n    const [year, month, day] = datePart.split('-');\n\n    // Split the time component into hours, minutes, and seconds\n    const [hours, minutes, seconds] = timePart.split(':');\n\n    // Split the offset component into hours and minutes\n    const [offsetHours, offsetMinutes] = offsetPart.split(':');\n\n    // Create a new Date object with the extracted components\n    const parsedDate = new Date(\n        parseInt(year),\n        parseInt(month) - 1, // Months are 0-based in JavaScript Dates\n        parseInt(day),\n        parseInt(hours),\n        parseInt(minutes),\n        parseInt(seconds)\n    );\n\n    // Adjust the date based on the time zone offset\n    parsedDate.setHours(parsedDate.getHours() - parseInt(offsetHours));\n    parsedDate.setMinutes(parsedDate.getMinutes() - parseInt(offsetMinutes));\n\n    return parsedDate;\n}",
+        "func": "// Get the JSON input from MQTT message\nvar fields = msg.payload;\n\n// Log a message indicating that a message has been received\nnode.log(`Received a message by topic [${msg.topic}]`);\n\n// Set the measurement name\nmsg.measurement = \"iot_data\";\n\n// Use the timestamp from the payload or default to the current time\nvar timestamp;\nif (fields.timestamp) {\n    timestamp = parseDateString(fields.timestamp);\n    node.log(`Data timestamp is ${fields.timestamp}`);\n} else {\n    timestamp = new Date();\n    node.log(\"Data timestamp is NOW\");\n}\nvar time = timestamp.getTime();\ntimestamp = convertTimestamp(timestamp);\n\n// Check if the timestamp is valid\nif (timestamp && !isNaN(time)) {\n    var output = {};\n\n    // Filter and log only numerical fields\n    for (const [field, value] of Object.entries(fields)) {\n        if (typeof value === \"number\") {\n            node.log(`${msg.topic}.${field} ${value}`);\n            // Include only numerical fields in the message\n            output[field] = value;\n        }\n    }\n    output.timestamp = timestamp;\n    msg.payload = output;\n} else {\n    // Log an error message\n    node.error(\"Invalid timestamp received\");\n    // Set payload to null or an appropriate value to indicate invalid timestamp\n    msg.payload = null;\n    // Stop the flow by returning null or an empty object\n    return null;\n}\nreturn msg;\n\nfunction parseDateString(dateString) {\n    // Format the dateString\n    dateString = dateString.slice(0, -6) + dateString.slice(-5);\n    \n    // Split the date string into its components\n    const [datePart, timePart, offsetPart] = dateString.split(' ');\n\n    // Split the date component into year, month, and day\n    const [year, month, day] = datePart.split('-');\n\n    // Split the time component into hours, minutes, and seconds\n    const [hours, minutes, seconds] = timePart.split(':');\n\n    // Split the offset component into hours and minutes\n    const [offsetHours, offsetMinutes] = offsetPart.split(':');\n\n    // Create a new Date object with the extracted components\n    const parsedDate = new Date(\n        parseInt(year),\n        parseInt(month) - 1, // Months are 0-based in JavaScript Dates\n        parseInt(day),\n        parseInt(hours),\n        parseInt(minutes),\n        parseInt(seconds)\n    );\n\n    // Adjust the date based on the time zone offset\n    parsedDate.setHours(parsedDate.getHours() - parseInt(offsetHours));\n    parsedDate.setMinutes(parsedDate.getMinutes() - parseInt(offsetMinutes));\n\n    return parsedDate;\n}\n\nfunction convertTimestamp(timestampStr) {\n    // Convert timestamp string to a Date object\n    const timestamp = new Date(timestampStr);\n\n    // Add 2 hours to resemble GMT +2 time\n    timestamp.setHours(timestamp.getHours() + 2);\n\n    // Define the month names in Romanian\n    const months = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie'];\n\n    // Format the date in the desired format\n    const formattedStr = `${timestamp.getDate()} ${months[timestamp.getMonth()]} ${timestamp.getFullYear()}, ora ${timestamp.toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' })}`;\n\n    return formattedStr;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -341,7 +341,8 @@
         "wires": [
             [
                 "2e4ba6dacdc16090",
-                "84e98c94accb4d5e"
+                "84e98c94accb4d5e",
+                "c45e83be29ab7f2b"
             ]
         ]
     },
@@ -349,7 +350,7 @@
         "id": "84e98c94accb4d5e",
         "type": "debug",
         "z": "6a8edfdc97cb68bb",
-        "name": "InfluxDB input",
+        "name": "InfluxDB payload",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -358,8 +359,25 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 580,
+        "x": 590,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "c45e83be29ab7f2b",
+        "type": "debug",
+        "z": "6a8edfdc97cb68bb",
+        "name": "InfluxDB measurement",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "measurement",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 180,
         "wires": []
     }
 ]
