@@ -1,12 +1,28 @@
 #!/bin/bash
 
+# Function to check if Grafana is ready
+grafana_ready() {
+    curl -G "http://sprc3_grafana:3000/api/health" >/dev/null 2>&1
+}
+
+# Run Grafana in the background
+grafana-server &
+
+# Wait for Grafana to be ready
+until grafana_ready; do
+    echo "Waiting for Grafana to start..."
+    sleep 5
+done
+echo "Grafana is ready."
+
+# Log initialization start
+echo "Initialization started"
+
 LOG_FILE="/data/logs.txt"
 echo "" > "$LOG_FILE"
 
 # Redirect stdout and stderr to the log file
 exec > >(tee -a "$LOG_FILE") 2>&1
-
-echo "Script started"
 
 # Print current working directory
 echo "Current working directory: $(pwd)"
@@ -238,5 +254,8 @@ curl -XPOST -H "Content-Type: application/json" \
 }
 EOF
 
-# Log script completion
-echo "Script execution completed."
+# Log initialization completion
+echo "Initialization completed."
+
+# Sleep to keep the script running in the background
+sleep infinity

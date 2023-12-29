@@ -1,6 +1,7 @@
 FROM grafana/grafana:latest
 
-WORKDIR /data
+# Copy your script into the container
+COPY grafana/init.sh /usr/share/grafana/init.sh
 
-# Copy the script and set execute permissions
-COPY ./grafana/db_connect.sh .
+# Set the script as the entry point
+ENTRYPOINT ["/bin/bash", "/usr/share/grafana/init.sh"]

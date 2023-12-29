@@ -51,7 +51,6 @@ services:
     depends_on:
       - influxdb
       - mosquitto
-    command: ./db_connect.sh
 
   mosquitto:
     image: mosquitto-server
