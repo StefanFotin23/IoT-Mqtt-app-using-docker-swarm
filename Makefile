@@ -2,7 +2,7 @@
 
 NAME := sprc3
 
-all: stop wait build start wait_status
+all: stop wait build start
 
 build:
 	./build_images.sh
@@ -13,6 +13,12 @@ build:
 
 start:
 	docker stack deploy -c stack.yml $(NAME)
+	@echo "Waiting for services to be in 'Running' state..."
+	@while [ "$$(docker stack ps --filter 'desired-state=Running' --format '{{.CurrentState}}' $(NAME) | grep -v 'Running' | wc -l)" -gt 0 ]; do \
+		sleep 5; \
+	done
+	@echo "All services are now in 'Running' state."
+	docker stack ps $(NAME)
 
 status:
 	docker stack ps $(NAME)
@@ -39,11 +45,3 @@ logs-node-red:
 
 wait:
 	sleep 5
-
-wait_status:
-	@echo "Waiting for services to be in 'Running' state..."
-	@while [ "$$(docker stack ps --filter 'desired-state=Running' --format '{{.CurrentState}}' $(NAME) | grep -v 'Running' | wc -l)" -gt 0 ]; do \
-		sleep 5; \
-	done
-	@echo "All services are now in 'Running' state."
-	docker stack ps $(NAME)

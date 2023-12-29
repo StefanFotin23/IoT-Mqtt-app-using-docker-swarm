@@ -83,7 +83,8 @@ curl -XPOST -H "Content-Type: application/json" \
                         "measurement": "iot_data",
                         "groupBy": [
                             {
-                                "type": "tag"
+                                "type": "tag",
+                                "params": ["topic"]
                             }
                         ],
                         "select": [
@@ -196,7 +197,8 @@ curl -XPOST -H "Content-Type: application/json" \
                         "measurement": "iot_data",
                         "groupBy": [
                             {
-                                "type": "tag"
+                                "type": "tag",
+                                "params": ["device"]
                             }
                         ],
                         "select": [
