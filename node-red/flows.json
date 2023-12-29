@@ -203,7 +203,7 @@
             }
         ],
         "x": 410,
-        "y": 500,
+        "y": 400,
         "wires": [
             [
                 "589fce16a72abf47"
@@ -225,7 +225,7 @@
         "y": 280,
         "wires": [
             [
-                "05c394af3692ddd2"
+                "c3cb3ad107b502c7"
             ]
         ]
     },
@@ -242,8 +242,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 650,
-        "y": 500,
+        "x": 630,
+        "y": 400,
         "wires": []
     },
     {
@@ -259,7 +259,7 @@
         "finalize": "",
         "libs": [],
         "x": 160,
-        "y": 500,
+        "y": 400,
         "wires": [
             [
                 "a588503d214c13ff",
@@ -272,7 +272,7 @@
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "JSON Input Data",
-        "func": "var number = msg.payload;\n\nswitch (number) {\n    case 1:\n        msg.payload = {\n            message: {\n                BAT: 99,\n                HUMID: 40,\n                PRJ: \"SPRC\",\n                TMP: 25.3,\n                status: \"OK\",\n                timestamp: \"2019-11-26 03:54:20 + 03:00\"\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 2:\n        msg.payload = {\n            message: {\n                Alarm: 0,\n                AQI: 12,\n                RSSI: 1550\n            },\n            topic: \"Dorinel/Zeus\"\n        };\n        break;\n    default:\n        // Default action when number doesn't match any case\n        msg.payload = {\n            message: {\n                message: \"This message was invalid\",\n            },\n            topic: \"invalidPayload\"\n        };        \n}\n\nreturn msg;",
+        "func": "var caseNumber = getRandomInt(1,4);\n\nfunction getRandomInt(min, max) {\n    return Math.floor(Math.random() * (max - min + 1)) + min;\n}\n\nfunction getRandomBAT() {\n    return getRandomInt(0, 100);\n}\n\nfunction getRandomHUMID() {\n    return getRandomInt(30, 70);\n}\n\nfunction getRandomTMP() {\n    return getRandomInt(10, 40) + parseFloat(Math.random().toFixed(1));\n}\n\nfunction getRandomAlarm() {\n    return getRandomInt(0, 1);\n}\n\nfunction getRandomAQI() {\n    return getRandomInt(0, 50);\n}\n\nfunction getRandomRSSI() {\n    return getRandomInt(1300, 1700);\n}\n\nfunction getRandomTimestamp() {\n    var year = getRandomInt(2018, 2023);\n    var month = getRandomInt(1, 12);\n    var day = getRandomInt(1, 28);\n    var hours = getRandomInt(0, 23);\n    var minutes = getRandomInt(0, 59);\n    var seconds = getRandomInt(0, 59);\n\n    return `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} +03:00`;\n}\n\nswitch (caseNumber) {\n    case 1:\n        msg.payload = {\n            message: {\n                BAT: getRandomBAT(),\n                HUMID: getRandomHUMID(),\n                PRJ: \"SPRC\",\n                TMP: getRandomTMP(),\n                status: \"OK\",\n                timestamp: getRandomTimestamp()\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 2:\n        msg.payload = {\n            message: {\n                Alarm: getRandomAlarm(),\n                AQI: getRandomAQI(),\n                RSSI: getRandomRSSI()\n            },\n            topic: \"Dorinel/Zeus\"\n        };\n        break;\n    case 3:\n        msg.payload = {\n            message: {\n                BAT: getRandomBAT(),\n                HUMID: getRandomHUMID(),\n                PRJ: \"SPRC\",\n                TMP: getRandomTMP(),\n                status: \"OK\"\n            },\n            topic: \"UPB/RPi_1\"\n        };\n        break;\n    case 4:\n        msg.payload = {\n            message: {\n                Alarm: getRandomAlarm(),\n                AQI: getRandomAQI(),\n                RSSI: getRandomRSSI(),\n                timestamp: getRandomTimestamp()\n            },\n            topic: \"Dorinel/Zeus\"\n        };\n        break;\n    default:\n        // Default action when number doesn't match any case\n        msg.payload = {\n            message: {\n                message: \"This message was invalid\",\n            },\n            topic: \"invalidPayload\"\n        };\n}\nreturn msg;",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -280,7 +280,7 @@
         "finalize": "",
         "libs": [],
         "x": 150,
-        "y": 420,
+        "y": 340,
         "wires": [
             [
                 "0e1a609ac829dbfe"
@@ -301,35 +301,15 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 420,
-        "y": 560,
+        "y": 440,
         "wires": []
-    },
-    {
-        "id": "05c394af3692ddd2",
-        "type": "function",
-        "z": "6a8edfdc97cb68bb",
-        "name": "Get a random number from [a,b]",
-        "func": "// Set the range [a, b]\nvar a = 1;\nvar b = 2;\n\n// Generate a random number in the range [a, b]\nvar randomNum = Math.floor(Math.random() * (b - a + 1)) + a;\n\n// Set the message payload to the random number\nmsg.payload = randomNum;\nreturn msg;",
-        "outputs": 1,
-        "timeout": 0,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 190,
-        "y": 360,
-        "wires": [
-            [
-                "c3cb3ad107b502c7"
-            ]
-        ]
     },
     {
         "id": "7f446d00a9b24824",
         "type": "function",
         "z": "6a8edfdc97cb68bb",
         "name": "Format Data",
-        "func": "// Get the JSON input from MQTT message\nvar fields = msg.payload;\n\n// Log a message indicating that a message has been received\nnode.log(`Received a message by topic [${msg.topic}]`);\n\n// Set the measurement name\nmsg.measurement = \"iot_data\";\n\n// Use the timestamp from the payload or default to the current time\nvar timestamp;\nif (fields.timestamp) {\n    timestamp = parseDateString(fields.timestamp);\n    node.log(`Data timestamp is ${fields.timestamp}`);\n} else {\n    timestamp = new Date();\n    node.log(\"Data timestamp is NOW\");\n}\nvar time = timestamp.getTime();\n\ntimestamp = convertTimestamp(timestamp);\n// Check if the timestamp is valid\nif (timestamp && !isNaN(time)) {\n    var output = {};\n\n    // Filter and log only numerical fields\n    for (const [field, value] of Object.entries(fields)) {\n        if (typeof value === \"number\") {\n            node.log(`${msg.topic}.${field} ${value}`);\n            // Include only numerical fields in the message\n            output[field] = value;\n        }\n    }\n    // Format time from ms to s\n    output.time = time / 1000;\n    msg.payload = output;\n} else {\n    // Log an error message\n    node.error(\"Invalid timestamp received\");\n    // Set payload to null or an appropriate value to indicate invalid timestamp\n    msg.payload = null;\n    // Stop the flow by returning null or an empty object\n    return null;\n}\nreturn msg;\n\nfunction parseDateString(dateString) {\n    // Format the dateString\n    dateString = dateString.slice(0, -6) + dateString.slice(-5);\n    \n    // Split the date string into its components\n    const [datePart, timePart, offsetPart] = dateString.split(' ');\n\n    // Split the date component into year, month, and day\n    const [year, month, day] = datePart.split('-');\n\n    // Split the time component into hours, minutes, and seconds\n    const [hours, minutes, seconds] = timePart.split(':');\n\n    // Split the offset component into hours and minutes\n    const [offsetHours, offsetMinutes] = offsetPart.split(':');\n\n    // Create a new Date object with the extracted components\n    const parsedDate = new Date(\n        parseInt(year),\n        parseInt(month) - 1, // Months are 0-based in JavaScript Dates\n        parseInt(day),\n        parseInt(hours),\n        parseInt(minutes),\n        parseInt(seconds)\n    );\n\n    // Adjust the date based on the time zone offset\n    parsedDate.setHours(parsedDate.getHours() - parseInt(offsetHours));\n    parsedDate.setMinutes(parsedDate.getMinutes() - parseInt(offsetMinutes));\n\n    return parsedDate;\n}\n\nfunction convertTimestamp(timestampStr) {\n    // Convert timestamp string to a Date object\n    const timestamp = new Date(timestampStr);\n\n    // Add 2 hours to resemble GMT +2 time\n    timestamp.setHours(timestamp.getHours() + 2);\n\n    // Define the month names in Romanian\n    const months = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie'];\n\n    // Format the date in the desired format\n    const formattedStr = `${timestamp.getDate()} ${months[timestamp.getMonth()]} ${timestamp.getFullYear()}, ora ${timestamp.toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' })}`;\n\n    return formattedStr;\n}",
+        "func": "// Get the JSON input from MQTT message\nvar fields = msg.payload;\n\n// Log a message indicating that a message has been received\nnode.log(`Received a message by topic [${msg.topic}]`);\n\n// Set the measurement name\nmsg.measurement = \"iot_data\";\n\n// Use the timestamp from the payload or default to the current time\nvar timestamp;\nif (fields.timestamp) {\n    timestamp = parseDateString(fields.timestamp);\n    node.log(`Data timestamp is ${fields.timestamp}`);\n} else {\n    timestamp = new Date();\n    node.log(\"Data timestamp is NOW\");\n}\nvar time = timestamp.getTime();\n\ntimestamp = convertTimestamp(timestamp);\n// Check if the timestamp is valid\nif (timestamp && !isNaN(time)) {\n    var output = {};\n\n    // Filter and log only numerical fields\n    for (const [field, value] of Object.entries(fields)) {\n        if (typeof value === \"number\") {\n            node.log(`${msg.topic}.${field} ${value}`);\n            // Include only numerical fields in the message\n            output[field] = value;\n        }\n    }\n    // Format time from ms to s\n    output.time = Math.floor(time / 1000);\n    msg.payload = output;\n} else {\n    // Log an error message\n    node.error(\"Invalid timestamp received\");\n    // Set payload to null or an appropriate value to indicate invalid timestamp\n    msg.payload = null;\n    // Stop the flow by returning null or an empty object\n    return null;\n}\nreturn msg;\n\nfunction parseDateString(dateString) {\n    // Format the dateString\n    dateString = dateString.slice(0, -6) + dateString.slice(-5);\n    \n    // Split the date string into its components\n    const [datePart, timePart, offsetPart] = dateString.split(' ');\n\n    // Split the date component into year, month, and day\n    const [year, month, day] = datePart.split('-');\n\n    // Split the time component into hours, minutes, and seconds\n    const [hours, minutes, seconds] = timePart.split(':');\n\n    // Split the offset component into hours and minutes\n    const [offsetHours, offsetMinutes] = offsetPart.split(':');\n\n    // Create a new Date object with the extracted components\n    const parsedDate = new Date(\n        parseInt(year),\n        parseInt(month) - 1, // Months are 0-based in JavaScript Dates\n        parseInt(day),\n        parseInt(hours),\n        parseInt(minutes),\n        parseInt(seconds)\n    );\n\n    // Adjust the date based on the time zone offset\n    parsedDate.setHours(parsedDate.getHours() - parseInt(offsetHours));\n    parsedDate.setMinutes(parsedDate.getMinutes() - parseInt(offsetMinutes));\n\n    return parsedDate;\n}\n\nfunction convertTimestamp(timestampStr) {\n    // Convert timestamp string to a Date object\n    const timestamp = new Date(timestampStr);\n\n    // Add 2 hours to resemble GMT +2 time\n    timestamp.setHours(timestamp.getHours() + 2);\n\n    // Define the month names in Romanian\n    const months = ['ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie'];\n\n    // Format the date in the desired format\n    const formattedStr = `${timestamp.getDate()} ${months[timestamp.getMonth()]} ${timestamp.getFullYear()}, ora ${timestamp.toLocaleTimeString('en-US', { hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' })}`;\n\n    return formattedStr;\n}",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
