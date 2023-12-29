@@ -1,14 +1,13 @@
 
-Script started
-Current working directory: /data
+Current working directory: /usr/share/grafana
 InfluxDB is ready.
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  14036   7399 --:--:-- --:--:-- --:--:-- 21685
-{"datasource":{"id":1,"uid":"fe588c3f-f060-48ee-83df-dd5735f04e8b","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   334  100    72  100   262   4973  18096 --:--:-- --:--:-- --:--:-- 23857
+{"message":"data source with the same name already exists","traceID":""}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4092  100   196  100  3896   7042   136k --:--:-- --:--:-- --:--:--  148k
-{"folderUid":"","id":1,"slug":"aggregated-iot-data","status":"success","uid":"b4b701fa-f383-4b71-92eb-26fe02fb0568","url":"/d/b4b701fa-f383-4b71-92eb-26fe02fb0568/aggregated-iot-data","version":1}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4092  100   196  100  3896   9486   184k --:--:-- --:--:-- --:--:--  199k
+{"folderUid":"","id":1,"slug":"aggregated-iot-data","status":"success","uid":"d7c549b9-cf64-4e64-9bd2-caeba4964c9a","url":"/d/d7c549b9-cf64-4e64-9bd2-caeba4964c9a/aggregated-iot-data","version":2}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2475  100   206  100  2269   7995  88061 --:--:-- --:--:-- --:--:-- 99000
-{"folderUid":"","id":2,"slug":"battery-level-monitoring","status":"success","uid":"c5149018-feaf-44a4-b8ff-58b510261540","url":"/d/c5149018-feaf-44a4-b8ff-58b510261540/battery-level-monitoring","version":1}Script execution completed.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2475  100   206  100  2269  10101   108k --:--:-- --:--:-- --:--:--  120k
+{"folderUid":"","id":2,"slug":"battery-level-monitoring","status":"success","uid":"eea33d3f-621d-472b-adba-b22ff7646e96","url":"/d/eea33d3f-621d-472b-adba-b22ff7646e96/battery-level-monitoring","version":2}Initialization completed.
