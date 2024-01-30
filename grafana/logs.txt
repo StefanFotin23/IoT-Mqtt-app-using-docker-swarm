@@ -1,16 +1,1 @@
 
-Current working directory: /usr/share/grafana
-Waiting for InfluxDB...
-Waiting for InfluxDB...
-Waiting for InfluxDB...
-InfluxDB is ready.
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   334  100    72  100   262   1839   6692 --:--:-- --:--:-- --:--:--  8789
-{"message":"data source with the same name already exists","traceID":""}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  4092  100   196  100  3896   3763  74810 --:--:-- --:--:-- --:--:-- 80235
-{"folderUid":"","id":1,"slug":"aggregated-iot-data","status":"success","uid":"c29062b7-bbdc-4072-9848-daa96b5373ae","url":"/d/c29062b7-bbdc-4072-9848-daa96b5373ae/aggregated-iot-data","version":5}  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2475  100   206  100  2269   3842  42318 --:--:-- --:--:-- --:--:-- 46698
-{"folderUid":"","id":2,"slug":"battery-level-monitoring","status":"success","uid":"cf39646f-6610-4af5-9ff4-9cd6eb826497","url":"/d/cf39646f-6610-4af5-9ff4-9cd6eb826497/battery-level-monitoring","version":5}Initialization completed.

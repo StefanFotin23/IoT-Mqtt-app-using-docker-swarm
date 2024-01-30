@@ -1,8 +1,21 @@
 #!/bin/bash
 
+# Docker swarm stack name
+stack_name="sprc3"
+# InfluxDB measurement name
+measurement="iot_data"
+# Logfile name
+LOG_FILE="/data/logs.txt"
+# Grafana Credentials
+GRAFANA_USER="asistent"
+GRAFANA_PASSWORD="grafanaSPRC2023"
+# InfluxDB Credentials
+INFLUXDB_USER="user"
+INFLUXDB_PASSWORD="user_password"
+
 # Function to check if Grafana is ready
 grafana_ready() {
-    curl -G "http://sprc3_grafana:3000/api/health" >/dev/null 2>&1
+    curl -G "http://${stack_name}_grafana:3000/api/health" >/dev/null 2>&1
 }
 
 # Run Grafana in the background
@@ -10,70 +23,62 @@ grafana-server &
 
 # Wait for Grafana to be ready
 until grafana_ready; do
-    echo "Waiting for Grafana to start..."
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Waiting for Grafana to start..."
     sleep 5
 done
-echo "Grafana is ready."
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Grafana is ready."
 
 # Log initialization start
-echo "Initialization started"
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Initialization started"
 
-LOG_FILE="/data/logs.txt"
 echo "" > "$LOG_FILE"
 
 # Redirect stdout and stderr to the log file
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 # Print current working directory
-echo "Current working directory: $(pwd)"
-
-# Grafana Credentials
-GRAFANA_USER="asistent"
-GRAFANA_PASSWORD="grafanaSPRC2023"
-
-# InfluxDB Credentials
-INFLUXDB_USER="user"
-INFLUXDB_PASSWORD="user_password"
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Current working directory: $(pwd)"
 
 # Wait for InfluxDB to be ready
-until curl -G "http://sprc3_influxdb:8086/ping" >/dev/null 2>&1; do
-    echo "Waiting for InfluxDB..."
+until curl -G "http://${stack_name}_influxdb:8086/ping" >/dev/null 2>&1; do
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - Waiting for InfluxDB..."
     sleep 5
 done
-echo "InfluxDB is ready."
+echo "$(date '+%Y-%m-%d %H:%M:%S') - InfluxDB is ready."
 
-# Function to get InfluxDB tags for a measurement
-get_influxdb_tags() {
-    local measurement="$1"
-    curl -G "http://sprc3_influxdb:8086/query" --data-urlencode "q=SHOW TAG KEYS ON iot_data FROM \"$measurement\"" | jq -r '.results[0].series[0].values[][0]'
+# Configure Grafana data source
+curl -XPOST -H "Content-Type: application/json" \
+    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
+    http://${stack_name}_grafana:3000/api/datasources \
+    -d @- <<EOF
+{
+    "name": "InfluxDB",
+    "type": "influxdb",
+    "url": "http://${stack_name}_influxdb:8086",
+    "access": "proxy",
+    "database": "$measurement",
+    "user": "$INFLUXDB_USER",
+    "password": "$INFLUXDB_PASSWORD",
+    "basicAuth": false,
+    "jsonData": {
+        "organization": "UPB"
+    }
 }
+EOF
+echo ""
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Datasource InfluxDB configured."
 
 # Function to create Grafana dashboard for a measurement and its fields
 create_grafana_dashboard() {
-    local measurement="$1"
-    local title="$2"
-
-    tags=($(get_influxdb_tags "$measurement"))
-
-    targets=""
-    for tag in "${tags[@]}"; do
-        targets+="
-        [
-            {
-                \"type\": \"field\",
-                \"params\": [\"$tag\"],
-                \"alias\": \"$measurement/$tag\",
-                \"groupBy\": [],
-                \"color\": \"#$((RANDOM % 0x1000000))\"  # Random color for each field
-            }
-        ],"
-    done
-
-    targets=${targets%,}  # Remove the trailing comma
+    local tag="$1"
+    local measurement="$2"
+    local title="$3"
+    # Echo the values for debugging
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - create_grafana_dashboard(Tag: $tag, Measurement: $measurement, Title: $title)"
 
     curl -XPOST -H "Content-Type: application/json" \
         -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
-        http://sprc3_grafana:3000/api/dashboards/db \
+        http://${stack_name}_grafana:3000/api/dashboards/db \
         -d @- <<EOF
 {
     "dashboard": {
@@ -92,10 +97,20 @@ create_grafana_dashboard() {
                         "groupBy": [
                             {
                                 "type": "tag",
-                                "params": ["topic"]
+                                "params": ["$tag"]
                             }
                         ],
-                        "select": [$targets]
+                        "select": [
+                            [
+                                {
+                                    "type": "field",
+                                    "params": ["$tag"],
+                                    "alias": "$measurement/$tag",
+                                    "groupBy": [],
+                                    "color": "#$(printf '%06x\n' $((RANDOM & 0xFFFFFF)))"
+                                }
+                            ]
+                        ]
                     }
                 ],
                 "fieldConfig": {
@@ -130,14 +145,39 @@ create_grafana_dashboard() {
 EOF
 }
 
-# Create Grafana dashboard for aggregated IoT data
-create_grafana_dashboard "iot_data" "Aggregated IoT Data"
+# List to store existing devices
+existing_devices=()
 
-# Create Grafana dashboard for battery level monitoring
-create_grafana_dashboard "iot_data" "Battery Level Monitoring"
+while true; do
+    # Get unique device values from InfluxDB using sed
+    devices=$(curl -sG "http://${stack_name}_influxdb:8086/query" --data-urlencode "db=$measurement" --data-urlencode "q=SHOW TAG VALUES FROM \"$measurement\" WITH KEY = \"device\"")
+    echo "${existing_devices[@]}"
+    # Extract device values from JSON response using Bash
+    device_values=$(echo "$devices" | grep -o '\[device,[^]]*' | tr ',' '\n' | sed 's/]//')
 
-# Log initialization completion
-echo "Initialization completed."
+    # Loop through device values and create dashboards
+    while read -r device_value; do
+        # Remove leading spaces
+        device_value=$(echo "$device_value" | tr -d '[:space:]')
 
-# Sleep to keep the script running in the background
-sleep infinity
+        # Check if device_value is not empty nor "[device"
+        if [ -n "$device_value" ] && [ "$device_value" != "[device" ]; then
+            # Check if device_value is not in the list of existing devices
+            if [[ ! " ${existing_devices[@]} " =~ " $device_value " ]]; then
+                # Add the device to the list of existing devices
+                existing_devices+=("$device_value")
+                # Display device_value
+                echo "$(date '+%Y-%m-%d %H:%M:%S') - New Device Value: $device_value"
+                create_grafana_dashboard "${device_value}" "${measurement}" "Dashboard for ${device_value}"
+                # Display All Devices
+                echo "$(date '+%Y-%m-%d %H:%M:%S') - All Device Values: ${existing_devices[@]}"
+            fi
+        fi
+    done <<< "$device_values"
+
+    # Sleep for 10 seconds before checking again
+    sleep 10
+done
+
+create_grafana_dashboard "Dorinel.Zeus" "${measurement}" "Dashboard for Dorinel.Zeus"
+create_grafana_dashboard "UPB.RPi_1" "${measurement}" "Dashboard for UPB.RPi_1"
