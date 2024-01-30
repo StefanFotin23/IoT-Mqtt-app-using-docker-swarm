@@ -1,1 +1,15 @@
 
+2024-01-30 15:56:16 - Current working directory: /usr/share/grafana
+2024-01-30 15:56:16 - Waiting for InfluxDB...
+2024-01-30 15:56:21 - InfluxDB is ready.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  12877   6788 --:--:-- --:--:-- --:--:-- 19973
+{"datasource":{"id":1,"uid":"c982c6bc-6abb-45c4-9952-e453f4346496","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}
+2024-01-30 15:56:21 - Datasource InfluxDB configured.
+
+
+
+
+
+
