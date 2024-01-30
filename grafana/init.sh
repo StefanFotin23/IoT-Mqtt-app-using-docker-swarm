@@ -42,107 +42,60 @@ until curl -G "http://sprc3_influxdb:8086/ping" >/dev/null 2>&1; do
 done
 echo "InfluxDB is ready."
 
-# Configure Grafana data source
-curl -XPOST -H "Content-Type: application/json" \
-    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
-    http://sprc3_grafana:3000/api/datasources \
-    -d @- <<EOF
-{
-    "name": "InfluxDB",
-    "type": "influxdb",
-    "url": "http://sprc3_influxdb:8086",
-    "access": "proxy",
-    "database": "iot_data",
-    "user": "$INFLUXDB_USER",
-    "password": "$INFLUXDB_PASSWORD",
-    "basicAuth": false,
-    "jsonData": {
-        "organization": "UPB"
-    }
+# Function to get InfluxDB tags for a measurement
+get_influxdb_tags() {
+    local measurement="$1"
+    curl -G "http://sprc3_influxdb:8086/query" --data-urlencode "q=SHOW TAG KEYS ON iot_data FROM \"$measurement\"" | jq -r '.results[0].series[0].values[][0]'
 }
-EOF
 
-# Create Grafana dashboard with a single graph panel aggregating all fields for all stations
-curl -XPOST -H "Content-Type: application/json" \
-    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
-    http://sprc3_grafana:3000/api/dashboards/db \
-    -d @- <<EOF
+# Function to create Grafana dashboard for a measurement and its fields
+create_grafana_dashboard() {
+    local measurement="$1"
+    local title="$2"
+
+    tags=($(get_influxdb_tags "$measurement"))
+
+    targets=""
+    for tag in "${tags[@]}"; do
+        targets+="
+        [
+            {
+                \"type\": \"field\",
+                \"params\": [\"$tag\"],
+                \"alias\": \"$measurement/$tag\",
+                \"groupBy\": [],
+                \"color\": \"#$((RANDOM % 0x1000000))\"  # Random color for each field
+            }
+        ],"
+    done
+
+    targets=${targets%,}  # Remove the trailing comma
+
+    curl -XPOST -H "Content-Type: application/json" \
+        -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
+        http://sprc3_grafana:3000/api/dashboards/db \
+        -d @- <<EOF
 {
     "dashboard": {
         "id": null,
-        "title": "Aggregated IoT Data",
+        "title": "$title",
         "timezone": "browser",
         "panels": [
             {
                 "id": 1,
                 "type": "graph",
-                "title": "Aggregated IoT Data",
+                "title": "$title",
                 "datasource": "InfluxDB",
                 "targets": [
                     {
-                        "measurement": "iot_data",
+                        "measurement": "$measurement",
                         "groupBy": [
                             {
                                 "type": "tag",
                                 "params": ["topic"]
                             }
                         ],
-                        "select": [
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["UPB.RPi_1.BAT"],
-                                    "alias": "UPB/RPi Battery Percentage",
-                                    "groupBy": [],
-                                    "color": "#3366cc"
-                                }
-                            ],
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["Dorinel.Zeus.Alarm"],
-                                    "alias": "Dorinel/Zeus Alarm",
-                                    "groupBy": [],
-                                    "color": "#dc3912"
-                                }
-                            ],
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["UPB.RPi_1.HUMID"],
-                                    "alias": "UPB/RPi Humidity",
-                                    "groupBy": [],
-                                    "color": "#ff9900"
-                                }
-                            ],
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["Dorinel.Zeus.RSSI"],
-                                    "alias": "Dorinel/Zeus RSSI",
-                                    "groupBy": [],
-                                    "color": "#109618"
-                                }
-                            ],
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["UPB.RPi_1.TEMP"],
-                                    "alias": "UPB/RPi Temperature",
-                                    "groupBy": [],
-                                    "color": "#990099"
-                                }
-                            ],
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["Dorinel.Zeus.AQI"],
-                                    "alias": "Dorinel/Zeus AQI",
-                                    "groupBy": [],
-                                    "color": "#0099c6"
-                                }
-                            ]
-                        ]
+                        "select": [$targets]
                     }
                 ],
                 "fieldConfig": {
@@ -175,84 +128,13 @@ curl -XPOST -H "Content-Type: application/json" \
     "overwrite": true
 }
 EOF
-
-# Create Grafana dashboard with a single graph panel for BAT field for Dorinel/Zeus and UPB/RPi stations
-curl -XPOST -H "Content-Type: application/json" \
-    -u "$GRAFANA_USER:$GRAFANA_PASSWORD" \
-    http://sprc3_grafana:3000/api/dashboards/db \
-    -d @- <<EOF
-{
-    "dashboard": {
-        "id": null,
-        "title": "Battery Level Monitoring",
-        "timezone": "browser",
-        "panels": [
-            {
-                "id": 1,
-                "type": "graph",
-                "title": "Battery Level Monitoring",
-                "datasource": "InfluxDB",
-                "targets": [
-                    {
-                        "measurement": "iot_data",
-                        "groupBy": [
-                            {
-                                "type": "tag",
-                                "params": ["device"]
-                            }
-                        ],
-                        "select": [
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["Dorinel.Zeus.BAT"],
-                                    "alias": "Dorinel/Zeus Battery Percentage",
-                                    "groupBy": [],
-                                    "color": "#3366cc"
-                                }
-                            ],
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["UPB.RPi_1.BAT"],
-                                    "alias": "UPB/RPi Battery Percentage",
-                                    "groupBy": [],
-                                    "color": "#dc3912"
-                                }
-                            ]
-                        ]
-                    }
-                ],
-                "fieldConfig": {
-                    "unit": "percent",
-                    "decimals": 2
-                },
-                "legend": {
-                    "show": true,
-                    "values": false,
-                    "min": false,
-                    "max": false,
-                    "current": false,
-                    "total": false,
-                    "avg": false
-                },
-                "color": {
-                    "mode": "palette-classic"
-                }
-            }
-        ],
-        "time": {
-            "from": "now-48h",
-            "to": "now"
-        },
-        "refresh": "30m",
-        "schemaVersion": 27,
-        "version": 0
-    },
-    "folderId": 0,
-    "overwrite": true
 }
-EOF
+
+# Create Grafana dashboard for aggregated IoT data
+create_grafana_dashboard "iot_data" "Aggregated IoT Data"
+
+# Create Grafana dashboard for battery level monitoring
+create_grafana_dashboard "iot_data" "Battery Level Monitoring"
 
 # Log initialization completion
 echo "Initialization completed."
