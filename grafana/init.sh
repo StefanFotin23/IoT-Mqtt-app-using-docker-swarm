@@ -13,6 +13,9 @@ GRAFANA_PASSWORD="grafanaSPRC2023"
 INFLUXDB_USER="user"
 INFLUXDB_PASSWORD="user_password"
 
+# List of tags
+DEVICES=("Dorinel.Zeus" "UPB.RPi_1")
+
 # Function to check if Grafana is ready
 grafana_ready() {
     curl -G "http://${stack_name}_grafana:3000/api/health" >/dev/null 2>&1
@@ -164,8 +167,9 @@ create_grafana_dashboard() {
 EOF
 }
 
-create_grafana_dashboard "Dorinel.Zeus" "${measurement}" "Dashboard for Dorinel.Zeus"
-create_grafana_dashboard "UPB.RPi_1" "${measurement}" "Dashboard for UPB.RPi_1"
+for tag in "${DEVICES[@]}"; do
+    create_grafana_dashboard "$tag" "$measurement" "Dashboard for $tag"
+done
 
 # List to store existing devices
 existing_devices=()
@@ -178,21 +182,21 @@ while true; do
     device_values=$(echo "$devices" | grep -o '\[device,[^]]*' | tr ',' '\n' | sed 's/]//')
 
     # Loop through device values and create dashboards
-    while read -r device_value; do
+    while IFS= read -r device_value; do
         # Remove leading spaces
         device_value=$(echo "$device_value" | tr -d '[:space:]')
 
         # Check if device_value is not empty nor "[device"
         if [ -n "$device_value" ] && [ "$device_value" != "[device" ]; then
             # Check if device_value is not in the list of existing devices
-            if [[ ! " ${existing_devices[@]} " =~ " $device_value " ]]; then
+            if ! [[ " ${existing_devices[*]} " =~ $device_value ]]; then
                 # Add the device to the list of existing devices
                 existing_devices+=("$device_value")
                 # Display device_value
                 echo "$(date '+%Y-%m-%d %H:%M:%S') - New Device Value: $device_value"
                 create_grafana_dashboard "${device_value}" "${measurement}" "Dashboard for ${device_value}"
                 # Display All Devices
-                echo "$(date '+%Y-%m-%d %H:%M:%S') - All Device Values: ${existing_devices[@]}"
+                echo "$(date '+%Y-%m-%d %H:%M:%S') - All Device Values: ${existing_devices[*]}"
             fi
         fi
     done <<< "$device_values"
