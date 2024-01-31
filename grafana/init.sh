@@ -14,7 +14,7 @@ INFLUXDB_USER="user"
 INFLUXDB_PASSWORD="CHANGE_ME"
 
 # List of tags
-DEVICES=("Dorinel.Zeus" "UPB.RPi_1")
+DEVICES=("Dorinel.Zeus" "UPB.RPi_1" "Stefan.TempSensor")
 
 # Function to check if Grafana is ready
 grafana_ready() {
