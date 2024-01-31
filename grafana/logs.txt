@@ -1,12 +1,109 @@
 
-2024-01-30 15:56:16 - Current working directory: /usr/share/grafana
-2024-01-30 15:56:16 - Waiting for InfluxDB...
-2024-01-30 15:56:21 - InfluxDB is ready.
+2024-01-31 10:03:40 - Current working directory: /usr/share/grafana
+2024-01-31 10:03:40 - Waiting for InfluxDB...
+2024-01-31 10:03:45 - InfluxDB is ready.
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  12877   6788 --:--:-- --:--:-- --:--:-- 19973
-{"datasource":{"id":1,"uid":"c982c6bc-6abb-45c4-9952-e453f4346496","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}
-2024-01-30 15:56:21 - Datasource InfluxDB configured.
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262   9966   5254 --:--:-- --:--:-- --:--:-- 15489
+{"datasource":{"id":1,"uid":"e32c1224-c48c-4876-afd6-6d7b6993649a","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}
+2024-01-31 10:03:45 - Datasource InfluxDB configured.
+2024-01-31 10:03:45 - create_grafana_dashboard(Tag: Dorinel.Zeus, Measurement: iot_data, Title: Dashboard for Dorinel.Zeus)
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2055  100   210  100  1845   7669  67384 --:--:-- --:--:-- --:--:-- 76111
+{"folderUid":"","id":1,"slug":"dashboard-for-dorinel-zeus","status":"success","uid":"e309dcb3-7faf-4277-aee1-6cefc5f44c09","url":"/d/e309dcb3-7faf-4277-aee1-6cefc5f44c09/dashboard-for-dorinel-zeus","version":1}2024-01-31 10:03:45 - create_grafana_dashboard(Tag: UPB.RPi_1, Measurement: iot_data, Title: Dashboard for UPB.RPi_1)
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2034  100   204  100  1830   7683  68921 --:--:-- --:--:-- --:--:-- 78230
+{"folderUid":"","id":2,"slug":"dashboard-for-upb-rpi-1","status":"success","uid":"ccf6f82a-a04f-4021-9e9b-fb931bf6ab5c","url":"/d/ccf6f82a-a04f-4021-9e9b-fb931bf6ab5c/dashboard-for-upb-rpi-1","version":1}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

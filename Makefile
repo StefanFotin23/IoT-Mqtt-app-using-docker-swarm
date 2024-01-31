@@ -5,6 +5,18 @@ NAME := sprc3
 all: stop wait build start
 
 build:
+	@if docker volume inspect $(NAME)_influxdb_data > /dev/null 2>&1; then \
+		docker volume rm $(NAME)_influxdb_data; \
+	fi
+	@if docker volume inspect $(NAME)_grafana_data > /dev/null 2>&1; then \
+		docker volume rm $(NAME)_grafana_data; \
+	fi
+	@if docker volume inspect $(NAME)_mosquitto_data > /dev/null 2>&1; then \
+		docker volume rm $(NAME)_mosquitto_data; \
+	fi
+	@if docker volume inspect $(NAME)_mosquitto_config > /dev/null 2>&1; then \
+		docker volume rm $(NAME)_mosquitto_config; \
+	fi
 	./build_images.sh
 	docker volume create $(NAME)_influxdb_data
 	docker volume create $(NAME)_grafana_data

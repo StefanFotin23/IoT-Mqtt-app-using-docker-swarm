@@ -73,6 +73,7 @@ create_grafana_dashboard() {
     local tag="$1"
     local measurement="$2"
     local title="$3"
+
     # Echo the values for debugging
     echo "$(date '+%Y-%m-%d %H:%M:%S') - create_grafana_dashboard(Tag: $tag, Measurement: $measurement, Title: $title)"
 
@@ -94,22 +95,32 @@ create_grafana_dashboard() {
                 "targets": [
                     {
                         "measurement": "$measurement",
-                        "groupBy": [
-                            {
-                                "type": "tag",
-                                "params": ["$tag"]
-                            }
-                        ],
                         "select": [
                             [
                                 {
                                     "type": "field",
                                     "params": ["$tag"],
-                                    "alias": "$measurement/$tag",
-                                    "groupBy": [],
-                                    "color": "#$(printf '%06x\n' $((RANDOM & 0xFFFFFF)))"
+                                    "alias": "$tag",
+                                    "groupBy": [
+                                        {
+                                            "type": "time",
+                                            "params": ["$__interval"]
+                                        },
+                                        {
+                                            "type": "fill",
+                                            "params": ["previous"]
+                                        }
+                                    ]
                                 }
                             ]
+                        ],
+                        "where": [
+                            {
+                                "type": "tag",
+                                "key": "device",
+                                "value": "$tag",
+                                "operator": "="
+                            }
                         ]
                     }
                 ],
@@ -145,6 +156,9 @@ create_grafana_dashboard() {
 EOF
 }
 
+create_grafana_dashboard "Dorinel.Zeus" "${measurement}" "Dashboard for Dorinel.Zeus"
+create_grafana_dashboard "UPB.RPi_1" "${measurement}" "Dashboard for UPB.RPi_1"
+
 # List to store existing devices
 existing_devices=()
 
@@ -178,6 +192,3 @@ while true; do
     # Sleep for 10 seconds before checking again
     sleep 10
 done
-
-create_grafana_dashboard "Dorinel.Zeus" "${measurement}" "Dashboard for Dorinel.Zeus"
-create_grafana_dashboard "UPB.RPi_1" "${measurement}" "Dashboard for UPB.RPi_1"
