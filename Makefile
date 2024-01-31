@@ -6,16 +6,36 @@ all: stop wait build start
 
 build:
 	@if docker volume inspect $(NAME)_influxdb_data > /dev/null 2>&1; then \
+		while [ "$$(docker ps -q -f volume=$(NAME)_influxdb_data | wc -l)" -gt 0 ]; do \
+			echo "$(NAME)_influxdb_data is in use."; \
+			sleep 5; \
+		done; \
 		docker volume rm $(NAME)_influxdb_data; \
+		echo "Deleted volume: $(NAME)_influxdb_data"; \
 	fi
 	@if docker volume inspect $(NAME)_grafana_data > /dev/null 2>&1; then \
+		while [ "$$(docker ps -q -f volume=$(NAME)_grafana_data | wc -l)" -gt 0 ]; do \
+			echo "$(NAME)_grafana_data is in use."; \
+			sleep 5; \
+		done; \
 		docker volume rm $(NAME)_grafana_data; \
+		echo "Deleted volume: $(NAME)_grafana_data"; \
 	fi
 	@if docker volume inspect $(NAME)_mosquitto_data > /dev/null 2>&1; then \
+		while [ "$$(docker ps -q -f volume=$(NAME)_mosquitto_data | wc -l)" -gt 0 ]; do \
+			echo "$(NAME)_mosquitto_data is in use."; \
+			sleep 5; \
+		done; \
 		docker volume rm $(NAME)_mosquitto_data; \
+		echo "Deleted volume: $(NAME)_mosquitto_data"; \
 	fi
 	@if docker volume inspect $(NAME)_mosquitto_config > /dev/null 2>&1; then \
+		while [ "$$(docker ps -q -f volume=$(NAME)_mosquitto_config | wc -l)" -gt 0 ]; do \
+			echo "$(NAME)_mosquitto_config is in use."; \
+			sleep 5; \
+		done; \
 		docker volume rm $(NAME)_mosquitto_config; \
+		echo "Deleted volume: $(NAME)_mosquitto_config"; \
 	fi
 	./build_images.sh
 	docker volume create $(NAME)_influxdb_data
