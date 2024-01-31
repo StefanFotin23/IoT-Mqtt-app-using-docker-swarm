@@ -1,22 +1,23 @@
 
-2024-01-31 21:08:02 - Current working directory: /usr/share/grafana
-2024-01-31 21:08:02 - InfluxDB is ready.
+2024-01-31 21:25:25 - Current working directory: /usr/share/grafana
+2024-01-31 21:25:25 - InfluxDB is ready.
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262   7705   4061 --:--:-- --:--:-- --:--:-- 11859
-{"datasource":{"id":1,"uid":"b47a2933-0e1a-452b-b3ce-2400dd0efe99","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}2024-01-31 21:08:02 - Datasource InfluxDB configured.
-2024-01-31 21:08:02 - create_grafana_dashboard(Tag: Dorinel.Zeus, Measurement: iot_data, Title: Dashboard for Dorinel.Zeus)
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   759  100   497  100   262  13161   6938 --:--:-- --:--:-- --:--:-- 20513
+{"datasource":{"id":1,"uid":"bb7c7570-66b0-4ff5-a53a-b8920c37c80e","orgId":1,"name":"InfluxDB","type":"influxdb","typeLogoUrl":"/public/app/plugins/datasource/influxdb/img/influxdb_logo.svg","access":"proxy","url":"http://sprc3_influxdb:8086","user":"user","database":"iot_data","basicAuth":false,"basicAuthUser":"","withCredentials":false,"isDefault":true,"jsonData":{"organization":"UPB"},"secureJsonFields":{},"version":1,"readOnly":false},"id":1,"message":"Datasource added","name":"InfluxDB"}2024-01-31 21:25:25 - Datasource InfluxDB configured.
+2024-01-31 21:25:25 - create_grafana_dashboard(Tag: Dorinel.Zeus, Measurement: iot_data, Title: Dashboard for Dorinel.Zeus)
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2079  100   210  100  1869   7320  65156 --:--:-- --:--:-- --:--:-- 74250
-{"folderUid":"","id":1,"slug":"dashboard-for-dorinel-zeus","status":"success","uid":"dadfd7a5-5774-4a82-9053-bb176756438c","url":"/d/dadfd7a5-5774-4a82-9053-bb176756438c/dashboard-for-dorinel-zeus","version":1}2024-01-31 21:08:02 - create_grafana_dashboard(Tag: UPB.Rpi_1, Measurement: iot_data, Title: Dashboard for UPB.Rpi_1)
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2079  100   210  100  1869   7356  65473 --:--:-- --:--:-- --:--:-- 74250
+{"folderUid":"","id":1,"slug":"dashboard-for-dorinel-zeus","status":"success","uid":"be634a0c-d49f-4848-9115-bbc2bce7f11d","url":"/d/be634a0c-d49f-4848-9115-bbc2bce7f11d/dashboard-for-dorinel-zeus","version":1}2024-01-31 21:25:25 - create_grafana_dashboard(Tag: UPB.RPi_1, Measurement: iot_data, Title: Dashboard for UPB.RPi_1)
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2058  100   204  100  1854   8214  74652 --:--:-- --:--:-- --:--:-- 85750
-{"folderUid":"","id":2,"slug":"dashboard-for-upb-rpi-1","status":"success","uid":"ab77936c-ec5c-46ee-b27e-a6a3537a76df","url":"/d/ab77936c-ec5c-46ee-b27e-a6a3537a76df/dashboard-for-upb-rpi-1","version":1}
-
-
-
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2058  100   204  100  1854   7639  69425 --:--:-- --:--:-- --:--:-- 79153
+{"folderUid":"","id":2,"slug":"dashboard-for-upb-rpi-1","status":"success","uid":"e38369cb-1016-44b7-b1ed-cf3705a80ac5","url":"/d/e38369cb-1016-44b7-b1ed-cf3705a80ac5/dashboard-for-upb-rpi-1","version":1}2024-01-31 21:25:25 - create_grafana_dashboard(Tag: Stefan.TempSensor, Measurement: iot_data, Title: Dashboard for Stefan.TempSensor)
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2114  100   220  100  1894   8337  71777 --:--:-- --:--:-- --:--:-- 81307
+{"folderUid":"","id":3,"slug":"dashboard-for-stefan-tempsensor","status":"success","uid":"b7cef757-7e58-4edd-9e48-af76810b8a49","url":"/d/b7cef757-7e58-4edd-9e48-af76810b8a49/dashboard-for-stefan-tempsensor","version":1}
 
 
 
