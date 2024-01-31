@@ -65,7 +65,7 @@ curl -XPOST -H "Content-Type: application/json" \
     }
 }
 EOF
-echo ""
+
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Datasource InfluxDB configured."
 
 # Function to create Grafana dashboard for a measurement and its fields
@@ -74,7 +74,6 @@ create_grafana_dashboard() {
     local measurement="$2"
     local title="$3"
 
-    # Echo the values for debugging
     echo "$(date '+%Y-%m-%d %H:%M:%S') - create_grafana_dashboard(Tag: $tag, Measurement: $measurement, Title: $title)"
 
     curl -XPOST -H "Content-Type: application/json" \
@@ -93,37 +92,46 @@ create_grafana_dashboard() {
                 "title": "$title",
                 "datasource": "InfluxDB",
                 "targets": [
-                    {
-                        "measurement": "$measurement",
-                        "select": [
-                            [
-                                {
-                                    "type": "field",
-                                    "params": ["$tag"],
-                                    "alias": "$tag",
-                                    "groupBy": [
-                                        {
-                                            "type": "time",
-                                            "params": ["$__interval"]
-                                        },
-                                        {
-                                            "type": "fill",
-                                            "params": ["previous"]
-                                        }
-                                    ]
-                                }
-                            ]
-                        ],
-                        "where": [
-                            {
-                                "type": "tag",
-                                "key": "device",
-                                "value": "$tag",
-                                "operator": "="
-                            }
-                        ]
-                    }
-                ],
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "e40458de-ef88-4e4c-8877-6ee62ed53974"
+      },
+      "refId": "A",
+      "policy": "default",
+      "resultFormat": "time_series",
+      "orderByTime": "ASC",
+      "tags": [
+        {
+          "key": "device::tag",
+          "value": "$tag",
+          "operator": "="
+        }
+      ],
+      "groupBy": [
+        {
+          "type": "time",
+          "params": ["$__interval"]
+        },
+        {
+          "type": "fill",
+          "params": ["previous"]
+        }
+      ],
+      "select": [
+        [
+          {
+            "type": "field",
+            "params": ["value"],
+            "alias": "$tag"
+          }
+        ]
+      ],
+      "measurement": "$measurement",
+      "query": "SELECT * FROM \"$measurement\" WHERE (\"device\"::tag = '$tag')",
+      "rawQuery": true
+    }
+  ],
                 "fieldConfig": {
                     "unit": "percent",
                     "decimals": 2
