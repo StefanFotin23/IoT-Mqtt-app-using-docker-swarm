@@ -58,8 +58,6 @@ status:
 stop:
 	docker stack rm $(NAME)
 
-logs: logs-grafana logs-influxdb logs-mosquitto logs-mqtt-client logs-node-red
-
 logs-grafana:
 	docker service logs $(NAME)_grafana
 
@@ -74,6 +72,9 @@ logs-mqtt-client:
 
 logs-node-red:
 	docker service logs $(NAME)_node-red
+
+logs-ngrok:
+	docker service logs $(NAME)_ngrok-server
 
 wait:
 	sleep 5

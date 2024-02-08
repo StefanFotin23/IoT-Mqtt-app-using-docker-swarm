@@ -3,50 +3,50 @@
 2 info using node@v16.20.2
 3 timing npm:load:whichnode Completed in 0ms
 4 timing config:load:defaults Completed in 2ms
-5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
-6 timing config:load:builtin Completed in 1ms
-7 timing config:load:cli Completed in 2ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 2ms
+6 timing config:load:builtin Completed in 2ms
+7 timing config:load:cli Completed in 3ms
 8 timing config:load:env Completed in 0ms
 9 timing config:load:file:/data/.npmrc Completed in 1ms
-10 timing config:load:project Completed in 9ms
+10 timing config:load:project Completed in 7ms
 11 timing config:load:file:/usr/src/node-red/.npmrc Completed in 0ms
 12 timing config:load:user Completed in 1ms
-13 timing config:load:file:/usr/local/etc/npmrc Completed in 1ms
-14 timing config:load:global Completed in 1ms
+13 timing config:load:file:/usr/local/etc/npmrc Completed in 2ms
+14 timing config:load:global Completed in 2ms
 15 timing config:load:validate Completed in 0ms
-16 timing config:load:credentials Completed in 1ms
+16 timing config:load:credentials Completed in 2ms
 17 timing config:load:setEnvs Completed in 1ms
 18 timing config:load Completed in 20ms
 19 timing npm:load:configload Completed in 20ms
-20 timing npm:load:mkdirpcache Completed in 4ms
-21 timing npm:load:mkdirplogs Completed in 6ms
+20 timing npm:load:mkdirpcache Completed in 8ms
+21 timing npm:load:mkdirplogs Completed in 8ms
 22 verbose title npm install node-red-contrib-influxdb
 23 verbose argv "install" "node-red-contrib-influxdb"
 24 timing npm:load:setTitle Completed in 2ms
-25 timing config:load:flatten Completed in 3ms
+25 timing config:load:flatten Completed in 4ms
 26 timing npm:load:display Completed in 5ms
 27 verbose logfile logs-max:10 dir:/data/.npm/_logs
-28 verbose logfile /data/.npm/_logs/2024-01-31T21_07_50_514Z-debug-0.log
-29 timing npm:load:logFile Completed in 21ms
+28 verbose logfile /data/.npm/_logs/2024-02-08T19_01_51_473Z-debug-0.log
+29 timing npm:load:logFile Completed in 25ms
 30 timing npm:load:timers Completed in 0ms
 31 timing npm:load:configScope Completed in 0ms
-32 timing npm:load Completed in 60ms
-33 timing arborist:ctor Completed in 1ms
+32 timing npm:load Completed in 71ms
+33 timing arborist:ctor Completed in 2ms
 34 silly logfile start cleaning logs, removing 2 files
 35 silly logfile done cleaning log files
-36 timing idealTree:init Completed in 36ms
+36 timing idealTree:init Completed in 35ms
 37 timing idealTree:userRequests Completed in 2ms
 38 silly idealTree buildDeps
 39 silly fetch manifest node-red-contrib-influxdb@^0.6.1
 40 timing arborist:ctor Completed in 0ms
-41 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb 101ms (cache hit)
+41 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb 1203ms (cache revalidated)
 42 silly placeDep ROOT node-red-contrib-influxdb@0.6.1 REPLACE for: node-red-project@0.0.1 want: ^0.6.1
-43 timing idealTree:#root Completed in 123ms
+43 timing idealTree:#root Completed in 1216ms
 44 timing idealTree:node_modules/node-red-contrib-influxdb Completed in 0ms
-45 timing idealTree:buildDeps Completed in 126ms
-46 timing idealTree:fixDepFlags Completed in 0ms
-47 timing idealTree Completed in 167ms
-48 timing reify:loadTrees Completed in 168ms
+45 timing idealTree:buildDeps Completed in 1220ms
+46 timing idealTree:fixDepFlags Completed in 1ms
+47 timing idealTree Completed in 1260ms
+48 timing reify:loadTrees Completed in 1262ms
 49 timing reify:diffTrees Completed in 2ms
 50 silly reify moves {}
 51 timing reify:retireShallow Completed in 2ms
@@ -58,21 +58,21 @@
 54 silly audit   lodash: [ '4.17.21' ],
 54 silly audit   'node-red-contrib-influxdb': [ '0.6.1' ]
 54 silly audit }
-55 timing reify:unpack Completed in 2ms
-56 timing reify:unretire Completed in 1ms
+55 timing reify:unpack Completed in 1ms
+56 timing reify:unretire Completed in 0ms
 57 timing build:queue Completed in 0ms
-58 timing build:deps Completed in 2ms
+58 timing build:deps Completed in 1ms
 59 timing build Completed in 2ms
-60 timing reify:build Completed in 4ms
+60 timing reify:build Completed in 3ms
 61 timing reify:trash Completed in 0ms
-62 timing reify:save Completed in 20ms
-63 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 477ms
-64 timing auditReport:getReport Completed in 481ms
+62 timing reify:save Completed in 19ms
+63 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 283ms
+64 timing auditReport:getReport Completed in 286ms
 65 silly audit report {}
 66 timing auditReport:init Completed in 0ms
-67 timing reify:audit Completed in 482ms
-68 timing reify Completed in 668ms
-69 timing command:install Completed in 676ms
+67 timing reify:audit Completed in 288ms
+68 timing reify Completed in 1566ms
+69 timing command:install Completed in 1577ms
 70 verbose exit 0
-71 timing npm Completed in 863ms
+71 timing npm Completed in 1755ms
 72 info ok

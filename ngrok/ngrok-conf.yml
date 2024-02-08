@@ -1,0 +1,12 @@
+authtoken: 2Xw6JhUnI8vjHL0g2EV9DSyYdbZ_zfvVfK7rqMA75qJFUYuv
+region: eu
+
+tunnels:
+  mosquitto_tunnel:
+    proto: http #tcp (needs ngrok plan upgrade)
+    addr: 1883
+    hostname: mqtt_broker.stefan.eu.ngrok.io
+  grafana_tunnel:
+    proto: http
+    addr: 3000
+    hostname: grafana.stefan.eu.ngrok.io

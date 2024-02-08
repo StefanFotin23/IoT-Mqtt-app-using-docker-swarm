@@ -1,0 +1,11 @@
+# Use the ngrok base image
+FROM wernight/ngrok
+
+# Copy the ngrok configuration file into the container
+COPY ngrok/ngrok-conf.yml /root/.ngrok2/ngrok.yml
+
+# Authenticate with ngrok using the provided token
+RUN ngrok authtoken 2Xw6JhUnI8vjHL0g2EV9DSyYdbZ_zfvVfK7rqMA75qJFUYuv
+
+# Command to start ngrok with the specified configuration file and tunnels
+CMD ["ngrok", "start", "-config=/root/.ngrok2/ngrok.yml", "all"]

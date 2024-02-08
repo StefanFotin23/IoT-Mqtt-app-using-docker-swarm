@@ -177,6 +177,7 @@ existing_devices=()
 while true; do
     # Get unique device values from InfluxDB using sed
     devices=$(curl -sG "http://${stack_name}_influxdb:8086/query" --data-urlencode "db=$measurement" --data-urlencode "q=SHOW TAG VALUES FROM \"$measurement\" WITH KEY = \"device\"")
+    echo "${devices[@]}"
     echo "${existing_devices[@]}"
     # Extract device values from JSON response using Bash
     device_values=$(echo "$devices" | grep -o '\[device,[^]]*' | tr ',' '\n' | sed 's/]//')
