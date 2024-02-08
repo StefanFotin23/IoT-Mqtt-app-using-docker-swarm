@@ -1,0 +1,78 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@8.19.4
+2 info using node@v16.20.2
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 2ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
+6 timing config:load:builtin Completed in 1ms
+7 timing config:load:cli Completed in 2ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/data/.npmrc Completed in 1ms
+10 timing config:load:project Completed in 5ms
+11 timing config:load:file:/usr/src/node-red/.npmrc Completed in 0ms
+12 timing config:load:user Completed in 1ms
+13 timing config:load:file:/usr/local/etc/npmrc Completed in 4ms
+14 timing config:load:global Completed in 4ms
+15 timing config:load:validate Completed in 1ms
+16 timing config:load:credentials Completed in 1ms
+17 timing config:load:setEnvs Completed in 1ms
+18 timing config:load Completed in 18ms
+19 timing npm:load:configload Completed in 18ms
+20 timing npm:load:mkdirpcache Completed in 5ms
+21 timing npm:load:mkdirplogs Completed in 7ms
+22 verbose title npm install node-red-contrib-influxdb
+23 verbose argv "install" "node-red-contrib-influxdb"
+24 timing npm:load:setTitle Completed in 2ms
+25 timing config:load:flatten Completed in 4ms
+26 timing npm:load:display Completed in 5ms
+27 verbose logfile logs-max:10 dir:/data/.npm/_logs
+28 verbose logfile /data/.npm/_logs/2024-02-08T19_10_33_332Z-debug-0.log
+29 timing npm:load:logFile Completed in 21ms
+30 timing npm:load:timers Completed in 0ms
+31 timing npm:load:configScope Completed in 0ms
+32 timing npm:load Completed in 60ms
+33 timing arborist:ctor Completed in 1ms
+34 silly logfile start cleaning logs, removing 2 files
+35 silly logfile done cleaning log files
+36 timing idealTree:init Completed in 30ms
+37 timing idealTree:userRequests Completed in 2ms
+38 silly idealTree buildDeps
+39 silly fetch manifest node-red-contrib-influxdb@^0.6.1
+40 timing arborist:ctor Completed in 1ms
+41 http fetch GET 200 https://registry.npmjs.org/node-red-contrib-influxdb 1155ms (cache revalidated)
+42 silly placeDep ROOT node-red-contrib-influxdb@0.6.1 REPLACE for: node-red-project@0.0.1 want: ^0.6.1
+43 timing idealTree:#root Completed in 1165ms
+44 timing idealTree:node_modules/node-red-contrib-influxdb Completed in 0ms
+45 timing idealTree:buildDeps Completed in 1167ms
+46 timing idealTree:fixDepFlags Completed in 0ms
+47 timing idealTree Completed in 1202ms
+48 timing reify:loadTrees Completed in 1203ms
+49 timing reify:diffTrees Completed in 1ms
+50 silly reify moves {}
+51 timing reify:retireShallow Completed in 1ms
+52 timing reify:createSparse Completed in 0ms
+53 timing reify:loadBundles Completed in 0ms
+54 silly audit bulk request {
+54 silly audit   '@influxdata/influxdb-client': [ '1.33.2' ],
+54 silly audit   influx: [ '5.6.3' ],
+54 silly audit   lodash: [ '4.17.21' ],
+54 silly audit   'node-red-contrib-influxdb': [ '0.6.1' ]
+54 silly audit }
+55 timing reify:unpack Completed in 1ms
+56 timing reify:unretire Completed in 0ms
+57 timing build:queue Completed in 0ms
+58 timing build:deps Completed in 1ms
+59 timing build Completed in 2ms
+60 timing reify:build Completed in 2ms
+61 timing reify:trash Completed in 1ms
+62 timing reify:save Completed in 12ms
+63 http fetch POST 200 https://registry.npmjs.org/-/npm/v1/security/advisories/bulk 282ms
+64 timing auditReport:getReport Completed in 284ms
+65 silly audit report {}
+66 timing auditReport:init Completed in 0ms
+67 timing reify:audit Completed in 286ms
+68 timing reify Completed in 1502ms
+69 timing command:install Completed in 1509ms
+70 verbose exit 0
+71 timing npm Completed in 1679ms
+72 info ok
