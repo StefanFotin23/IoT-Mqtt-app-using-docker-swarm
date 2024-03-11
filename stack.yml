@@ -14,14 +14,12 @@ networks:
     driver: overlay
   grafana-db-network:
     driver: overlay
-  ngrok-network:
-    driver: overlay
 
 services:
   influxdb:
     image: influxdb:1.7
     deploy:
-      replicas: 1
+      replicas: 3
     environment:
       - INFLUXDB_DB=iot_data
       - INFLUXDB_ADMIN_USER=admin
@@ -50,7 +48,6 @@ services:
       - ./grafana/logs.txt:/data/logs.txt
     networks:
       - grafana-db-network
-      - ngrok-network
     depends_on:
       - influxdb
       - mosquitto
@@ -58,7 +55,7 @@ services:
   mosquitto:
     image: mosquitto-server
     deploy:
-      replicas: 1
+      replicas: 3
     ports:
       - "1883:1883"
     volumes:
@@ -66,7 +63,6 @@ services:
       - mosquitto_config:/mosquitto/config
     networks:
       - broker-adapter-network
-      - ngrok-network
 
   node-red:
     image: node-red-client
@@ -90,7 +86,7 @@ services:
   mqtt-client:
     image: mqtt-client-image
     deploy:
-      replicas: 1
+      replicas: 9
     environment:
       - MQTT_BROKER_ADDRESS=sprc3_mosquitto
       - MQTT_BROKER_PORT=1883
@@ -103,13 +99,3 @@ services:
     depends_on:
       - influxdb
       - mosquitto
-  
-  ngrok-server:
-    image: ngrok-server
-    command: ngrok http grafana:3000
-    deploy:
-      replicas: 1
-    ports:
-      - "4040:4040"
-    networks:
-      - ngrok-network

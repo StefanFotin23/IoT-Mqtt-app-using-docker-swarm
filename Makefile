@@ -73,8 +73,5 @@ logs-mqtt-client:
 logs-node-red:
 	docker service logs $(NAME)_node-red
 
-logs-ngrok:
-	docker service logs $(NAME)_ngrok-server
-
 wait:
 	sleep 5

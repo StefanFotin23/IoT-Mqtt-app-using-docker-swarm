@@ -1,23 +1,63 @@
 
-2024-02-08 19:10:31 - Current working directory: /usr/share/grafana
-2024-02-08 19:10:31 - InfluxDB is ready.
+2024-03-11 15:40:45 - Current working directory: /usr/share/grafana
+2024-03-11 15:40:45 - Waiting for InfluxDB...
+2024-03-11 15:40:50 - Waiting for InfluxDB...
+2024-03-11 15:40:55 - InfluxDB is ready.
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   334  100    72  100   262   4333  15770 --:--:-- --:--:-- --:--:-- 20875
-{"message":"data source with the same name already exists","traceID":""}2024-02-08 19:10:31 - Datasource InfluxDB configured.
-2024-02-08 19:10:31 - create_grafana_dashboard(Tag: Dorinel.Zeus, Measurement: iot_data, Title: Dashboard for Dorinel.Zeus)
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   334  100    72  100   262    392   1428 --:--:-- --:--:-- --:--:--  1825
+{"message":"data source with the same name already exists","traceID":""}2024-03-11 15:40:55 - Datasource InfluxDB configured.
+2024-03-11 15:40:55 - create_grafana_dashboard(Tag: Dorinel.Zeus, Measurement: iot_data, Title: Dashboard for Dorinel.Zeus)
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2079  100   210  100  1869   9655  85934 --:--:-- --:--:-- --:--:-- 99000
-{"folderUid":"","id":1,"slug":"dashboard-for-dorinel-zeus","status":"success","uid":"bfb18793-dc5c-4dc7-898e-3b33f90191d1","url":"/d/bfb18793-dc5c-4dc7-898e-3b33f90191d1/dashboard-for-dorinel-zeus","version":3}2024-02-08 19:10:31 - create_grafana_dashboard(Tag: UPB.RPi_1, Measurement: iot_data, Title: Dashboard for UPB.RPi_1)
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2035  100   166  100  1869   2706  30472 --:--:-- --:--:-- --:--:-- 33360100  2035  100   166  100  1869   2703  30440 --:--:-- --:--:-- --:--:-- 33360
+{"folderUid":"","id":1,"slug":"dashboard-for-dorinel-zeus","status":"success","uid":"bdfbpfkeklj40c","url":"/d/bdfbpfkeklj40c/dashboard-for-dorinel-zeus","version":8}2024-03-11 15:40:55 - create_grafana_dashboard(Tag: UPB.RPi_1, Measurement: iot_data, Title: Dashboard for UPB.RPi_1)
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2058  100   204  100  1854   9976  90664 --:--:-- --:--:-- --:--:--  100k
-{"folderUid":"","id":2,"slug":"dashboard-for-upb-rpi-1","status":"success","uid":"a470f35e-6ad2-4402-bc5f-8eadb65ac48a","url":"/d/a470f35e-6ad2-4402-bc5f-8eadb65ac48a/dashboard-for-upb-rpi-1","version":3}2024-02-08 19:10:31 - create_grafana_dashboard(Tag: Stefan.TempSensor, Measurement: iot_data, Title: Dashboard for Stefan.TempSensor)
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2014  100   160  100  1854   3806  44102 --:--:-- --:--:-- --:--:-- 49121
+{"folderUid":"","id":2,"slug":"dashboard-for-upb-rpi-1","status":"success","uid":"ddfbpfki3ycqoc","url":"/d/ddfbpfki3ycqoc/dashboard-for-upb-rpi-1","version":8}2024-03-11 15:40:55 - create_grafana_dashboard(Tag: Stefan.TempSensor, Measurement: iot_data, Title: Dashboard for Stefan.TempSensor)
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2114  100   220  100  1894  10358  89179 --:--:-- --:--:-- --:--:--   98k
-{"folderUid":"","id":3,"slug":"dashboard-for-stefan-tempsensor","status":"success","uid":"d9b96652-2fb6-4382-ac45-a868e50e12b0","url":"/d/d9b96652-2fb6-4382-ac45-a868e50e12b0/dashboard-for-stefan-tempsensor","version":3}{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100  2070  100   176  100  1894   3067  33010 --:--:-- --:--:-- --:--:-- 36315
+{"folderUid":"","id":3,"slug":"dashboard-for-stefan-tempsensor","status":"success","uid":"ddfbpfklpt2pse","url":"/d/ddfbpfklpt2pse/dashboard-for-stefan-tempsensor","version":8}{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
 
 {"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
 
