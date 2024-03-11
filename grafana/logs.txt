@@ -103,3 +103,37 @@
 
 {"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
 
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
+{"results":[{"statement_id":0,"series":[{"name":"iot_data","columns":["key","value"],"values":[["device","Dorinel.Zeus"],["device","Stefan.TempSensor"],["device","UPB.RPi_1"]]}]}]}
+
