@@ -11,6 +11,3 @@ docker build -t node-red-client -f node-red/Dockerfile-node-red .
 
 # Build Grafana Docker image
 docker build -t grafana-server -f grafana/Dockerfile-grafana .
-
-# Build Ngrok Docker Image
-docker build -t ngrok-server -f ngrok/Dockerfile-ngrok .
