@@ -8,10 +8,10 @@ measurement="iot_data"
 LOG_FILE="/data/logs.txt"
 # Grafana Credentials
 GRAFANA_USER="asistent"
-GRAFANA_PASSWORD="CHANGE_ME"
+GRAFANA_PASSWORD="${GRAFANA_PASSWORD:-CHANGE_ME}"
 # InfluxDB Credentials
 INFLUXDB_USER="user"
-INFLUXDB_PASSWORD="CHANGE_ME"
+INFLUXDB_PASSWORD="${INFLUXDB_PASSWORD:-CHANGE_ME}"
 
 # List of tags
 DEVICES=("Dorinel.Zeus" "UPB.RPi_1" "Stefan.TempSensor")
